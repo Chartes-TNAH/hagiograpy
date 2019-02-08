@@ -1,2 +1,2 @@
-# hagiograpy
-Mise à disposition de catalogues de vie de saints
+# Hagiography
+Mise à disposition de catalogues de Vie de Saints
