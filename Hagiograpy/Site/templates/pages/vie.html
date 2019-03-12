@@ -1,0 +1,27 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}
+    {%if oeuvre %}| Oeuvre : {{oeuvre.Titre}} {% endif %}
+{% endblock %}
+
+{% block corps %}
+    {% if oeuvre %}
+        <h1>{{oeuvre.Titre}}</h1>
+        <dl>
+            <dt>Saint</dt><dd>{{saint.Nom_saint}}</dd>
+            {% for saint in saints %}
+            <dt>Saint</dt><dd>{{saint.Nom_saint}}</dd>
+            {% endfor %}
+            <dt>Titre:</dt><dd>{{oeuvre.Titre}}</dd>
+            <dt>Langue:</dt><dd>{{oeuvre.Langue}}</dd>
+            <dt>Incipit</dt><dd>{{oeuvre.Incipit}}</dd>
+            <dt>Expicit</dt><dd>{{oeuvre.Expicit}}</dd>
+            <dt>Folios</dt><dd>{{oeuvre.Folios}}</dd>
+
+        </dl>
+
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+    <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>
+{% endblock %}

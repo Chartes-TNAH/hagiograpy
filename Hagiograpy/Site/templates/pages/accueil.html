@@ -1,0 +1,14 @@
+{% extends "conteneur.html" %}
+{% block corps %}
+<h1>Bienvenue !</h1>
+    {% if oeuvres %}
+    <p>Il y a {{oeuvres|length}} oeuvres enregistrées :</p>
+        <ul>
+            {% for oeuvre in oeuvres %}
+            <li><a href="{{url_for('oeuvre', vie_id=oeuvre.IdOeuvre)}}">{{oeuvre.Titre}}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+{% endblock %}
