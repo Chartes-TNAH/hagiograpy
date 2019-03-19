@@ -1,6 +1,5 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from iiif2 import IIIF, web
 
 import os
 import os.path
@@ -15,14 +14,12 @@ app = Flask(
     static_folder=statics
 )
 
-
 # On configure la base de données
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./db_HagiograPY'
 # On initie l'extension
 db = SQLAlchemy(app)
 
-from .routes import oeuvre, accueil, info, iiif
-
+from .routes import oeuvre, accueil
 
 if __name__ == "__main__":
     app.run(debug=True)
