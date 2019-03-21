@@ -6,17 +6,50 @@
         {% include "partials/css.html" %}
         {% include "partials/metadata.html" %}
     </head>
+
     <body>
 
       <div class="container">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
           <a class="navbar-brand" href="{{ url_for('accueil') }}">Hagiograpy</a>
+
+          <ul class="navbar-nav mr-auto">
+            {% if not current_user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('inscription')}}">Inscription</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('connexion')}}">Connexion</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('deconnexion')}}">Déconnexion ({{current_user.user_nom}})</a>
+              </li>
+            {% endif %}
+          </ul>
         </nav>
-        <div class="row">
+      </div>
+      {% block afternav %}{%endblock%}
+
+      <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+          <div class="row">
+              <div class="col">
+                {% for category, message in messages %}
+                  <div class="alert alert-{{category}}" role="alert">{{ message }}</div>
+                {% endfor %}
+              </div>
+          </div>
+          {% endif %}
+          {% endwith %}
+          <div class="row">
             <div class="col">
             {% block corps %}{% endblock %}
             </div>
-        </div>
+          </div>
       </div>
+
     </body>
+
 </html>
