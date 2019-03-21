@@ -17,11 +17,15 @@
             <dt>Incipit</dt><dd>{{oeuvre.Incipit}}</dd>
             <dt>Explicit</dt><dd>{{oeuvre.Explicit}}</dd>
             <dt>Folios</dt><dd>{{oeuvre.Folios}}</dd>
-            <dt>URL</dt><dd><a href="{{oeuvre.URL}}">{{oeuvre.URL}}</a></dd>
-
+            <dt>URL de la page</dt><dd><a href="{{oeuvre.URL}}">{{oeuvre.URL}}</a></dd>
+            <dt>Manifeste IIIF</dt><dd><a href="{{oeuvre.IIIF}}">{{oeuvre.IIIF}}</a></dd>
         </dl>
+        <h2>Image</h2>
+        <p>
+            <img src='{{oeuvre.URL}}' alt="{{oeuvre.Titre}}" title="{{oeuvre.Titre}}" height="50%" width="50%"/>
+        </p>
 
-    {% else %}
+{% else %}
         <p>La base de données est en cours de constitution</p>
     {% endif %}
     <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>
