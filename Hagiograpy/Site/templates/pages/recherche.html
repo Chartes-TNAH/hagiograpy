@@ -10,8 +10,11 @@
     {% if resultats %}
         <p>Il y a {{resultats.total}} vies qui répondent à votre requête :</p>
         <ul>
-            {% for lieu in resultats.items %}
-                <li><a href="{{url_for('vie', vie_id=vie.saint_id)}}">{{vie.saint_nom}}</a></li>
+            {% for Saint in resultats.items %}
+                <li><a href="{{url_for('oeuvre', vie_id=Saint.IdSaint)}}">
+                    {{Saint.Nom_saint}}
+                </a>
+            </li>
             {% endfor %}
         </ul>
     <nav aria-label="research-pagination">
@@ -21,7 +24,7 @@
 
               {% if page != resultats.page %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for("recherche", keyword=keyword, page=page) }}">{{page}}</a>
+                    <a class="page-link" href="{{url_for('recherche', keyword=keyword, page=page) }}">{{page}}</a>
                 </li>
               {% else %}
                 <li class="page-item active disabled">

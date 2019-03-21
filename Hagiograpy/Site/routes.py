@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 
 
 from .app import app
@@ -20,8 +20,8 @@ def oeuvre(vie_id):
     :rtype: page HTML de la vie souhaité
     """
     unique_vie=Oeuvre.query.filter(Oeuvre.IdOeuvre==vie_id).first()
-    #On fait la requête sur la table Saint mais on l'a filtre en récupérant dans la base à travers la relation oeuvres
-    # n'importe qu'elle valeur dont Oeuvre.idOeuvre correspond à la valeur d'entrée
+    #On fait la requête sur la table Saint mais on la filtre en récupérant dans la base à travers la relation oeuvres
+    # n'importe quelle valeur dont Oeuvre.idOeuvre correspond à la valeur d'entrée
     saint_vie1 = Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre == vie_id)).first()
     saint_vie2=Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre==vie_id)).all()
 
@@ -42,9 +42,11 @@ def recherche():
 
     titre = "Recherche"
     if motclef:
-        resultats = Vie.query.filter(
-            Vie.vie_id.like("%{}%".format(motclef))
-        ).paginate(page=page, per_page=VIES_PAR_PAGE)
+        resultats = Saint.query.filter(
+            Saint.Nom_saint.like
+            ("%{}%".format(motclef))
+        ).paginate(page=page)
+
         titre = "Résultat pour la recherche `" + motclef + "`"
 
     return render_template(
