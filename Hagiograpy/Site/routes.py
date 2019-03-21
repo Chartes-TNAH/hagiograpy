@@ -24,4 +24,3 @@ def oeuvre(vie_id):
     saint_vie1=Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre==vie_id)).first()
     saint_vie2=Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre==vie_id)).all()
     return render_template("pages/vie.html", nom="Site", oeuvre=unique_vie, saints=saint_vie2, saint=saint_vie1)
-
