@@ -27,3 +27,29 @@ def oeuvre(vie_id):
 
     return render_template("pages/vie.html", nom="Site", oeuvre=unique_vie, saints=saint_vie2,saint=saint_vie1)
 
+@app.route("/recherche")
+def recherche():
+
+    motclef = request.args.get("keyword", None)
+    page = request.args.get("page", 1)
+
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
+    resultats = []
+
+    titre = "Recherche"
+    if motclef:
+        resultats = Vie.query.filter(
+            Vie.vie_id.like("%{}%".format(motclef))
+        ).paginate(page=page, per_page=VIES_PAR_PAGE)
+        titre = "Résultat pour la recherche `" + motclef + "`"
+
+    return render_template(
+        "pages/recherche.html",
+        resultats=resultats,
+        titre=titre,
+        keyword=motclef
+    )
