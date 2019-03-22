@@ -5,7 +5,22 @@
         <title>Hagiograpy {%block titre %}{%endblock%}</title>
         {% include "partials/css.html" %}
         {% include "partials/metadata.html" %}
+
+        <style type="text/css">
+            #banner  {
+                background-position: center center;
+                padding:10vh;
+                background-image: url({{url_for("static", filename="images/testimage.jpg")}});
+                background-size: cover, auto;
+            }
+        </style>
+
     </head>
+<<<<<<< HEAD
+=======
+
+    <body>
+>>>>>>> dev_comptes_utilisateurs
 
     <body>
        <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between">
@@ -15,6 +30,42 @@
        </nav>
       {% block afternav %}{%endblock%}
       <div class="container">
+<<<<<<< HEAD
+=======
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+          <a class="navbar-brand" href="{{ url_for('accueil') }}">Hagiograpy</a>
+
+          <ul class="navbar-nav mr-auto">
+            {% if not current_user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('inscription')}}">Inscription</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('connexion')}}">Connexion</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('deconnexion')}}">Déconnexion ({{current_user.user_nom}})</a>
+              </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+
+         <div class="jumbotron jumbotron-fluid" style="height: 200px"  id="banner">
+             <!--Search Bar-->
+             <form class="form-inline text-center" method = "GET"   >
+                 <input class="form-control" name="query"  type="text" placeholder="Recherche rapide">
+                 <button class="btn btn-dark" type="submit" >Rechercher</button>
+             </form>
+            <div class="container">
+            </div>
+        </div>
+
+      {% block afternav %}{%endblock%}
+
+      <div class="container">
+>>>>>>> dev_comptes_utilisateurs
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
           <div class="row">
@@ -25,15 +76,22 @@
               </div>
           </div>
           {% endif %}
+<<<<<<< HEAD
         {% endwith %}
         <div class="row">
+=======
+          {% endwith %}
+          <div class="row">
+>>>>>>> dev_comptes_utilisateurs
             <div class="col">
             {% block corps %}{% endblock %}
             </div>
-        </div>
+          </div>
       </div>
+
     </body>
 
+<<<<<<< HEAD
 <!-- Footer -->
 <footer class="page-footer font-small lighten-3 pt-4 text-white bg-dark">
 
@@ -141,4 +199,6 @@
 
 </footer>
 <!-- Footer -->
+=======
+>>>>>>> dev_comptes_utilisateurs
 </html>

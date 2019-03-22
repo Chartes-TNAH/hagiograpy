@@ -1,5 +1,6 @@
 from .. app import db
 
+
 Jointure_Saint_Oeuvre= db.Table('Jointure_Saint_Oeuvre',
                           db.Column('Oeuvre_IdOeuvre', db.Integer, db.ForeignKey('oeuvre.IdOeuvre'), primary_key=True),
                           db.Column('Saint_IdSaint', db.Integer, db.ForeignKey('saint.IdSaint'),primary_key=True))
@@ -67,3 +68,4 @@ class Localisation (db.Model):
     __tablename="localisation"
     IdLocalisation=db.Column(db.Integer, unique=True, primary_key=True, autoincrement=True)
     Ville=db.Column(db.TEXT)
+
