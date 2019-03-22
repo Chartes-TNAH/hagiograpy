@@ -5,6 +5,16 @@
         <title>Hagiograpy {%block titre %}{%endblock%}</title>
         {% include "partials/css.html" %}
         {% include "partials/metadata.html" %}
+
+        <style type="text/css">
+            #banner  {
+                background-position: center center;
+                padding:10vh;
+                background-image: url({{url_for("static", filename="images/testimage.jpg")}});
+                background-size: cover, auto;
+            }
+        </style>
+
     </head>
 
     <body>
@@ -29,6 +39,17 @@
           </ul>
         </nav>
       </div>
+
+         <div class="jumbotron jumbotron-fluid" style="height: 200px"  id="banner">
+             <!--Search Bar-->
+             <form class="form-inline text-center" method = "GET"   >
+                 <input class="form-control" name="query"  type="text" placeholder="Recherche rapide">
+                 <button class="btn btn-dark" type="submit" >Rechercher</button>
+             </form>
+            <div class="container">
+            </div>
+        </div>
+
       {% block afternav %}{%endblock%}
 
       <div class="container">
