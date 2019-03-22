@@ -74,3 +74,36 @@ class Localisation (db.Model):
                 Copiste, Cote, Titre, Nb_feuillets, Provenance, Support, Hauteur, Largeur, Institution):"""
 
 
+def controle(saint, titre, langue, incipit, explicit, Folio, Date_production, Lieu_production,
+                Cote, Nb_feuillets,  Support, Hauteur, Largeur, Institution):
+    erreurs = []
+    if not saint:
+        erreurs.append("Il manque le nom du Saint ")
+    if not titre:
+        erreurs.append("Il manque le titre de l'oeuvre ")
+    if not langue:
+        erreurs.append("Il manque la langue ")
+    if not incipit:
+        erreurs.append("Il manque l'incipit ")
+    if not explicit:
+        erreurs.append("Il manque l'explicit ")
+    if not Folio:
+        erreurs.append("Il manque les folios ")
+    if not Date_production:
+        erreurs.append("Il manque la date de production ")
+    if not Lieu_production:
+        erreurs.append("Il manque le lieu de production ")
+    if not Cote:
+        erreurs.append("Il manque la cote ")
+    if not Nb_feuillets:
+        erreurs.append("Il manque le nombre de feuillet ")
+    if not Support:
+        erreurs.append("Il manque le support du manuscrit ")
+    if not Hauteur:
+        erreurs.append("Il manque la hauteur du mansucrit ")
+    if not Largeur:
+        erreurs.append("Il manque la largeur du manuscri t")
+    if not Institution:
+        erreurs.append("Il manque l'institution")
+    if len(erreurs) > 0:
+        return False, erreurs
