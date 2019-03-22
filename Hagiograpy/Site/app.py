@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+
 import os
+import os.path
 
 chemin_actuel = os.path.dirname(os.path.abspath(__file__))
 templates = os.path.join(chemin_actuel, "templates")
@@ -18,6 +20,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./db_HagiograPY'
 db = SQLAlchemy(app)
 
 from .routes import oeuvre, accueil
+
+if __name__ == "__main__":
+    app.run(debug=True)
 
 
 

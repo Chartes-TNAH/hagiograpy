@@ -19,8 +19,8 @@ class Oeuvre(db.Model):
     Auteur=db.Column(db.Text)
     Langue=db.Column(db.Text)
     Incipit=db.Column(db.Text)
-    Excipit=db.Column(db.Text)
-    Lien_site = db.Column(db.Text)
+    Explicit=db.Column(db.Text)
+    URL = db.Column(db.Text)
     Folios=db.Column(db.Text)
     saints = db.relationship('Saint', secondary=Jointure_Saint_Oeuvre, backref='oeuvres')
 
