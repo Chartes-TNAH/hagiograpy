@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
+
+<head>
         <meta charset="UTF-8">
         <title>Hagiograpy {%block titre %}{%endblock%}</title>
         {% include "partials/css.html" %}
@@ -14,27 +15,13 @@
                 background-size: cover, auto;
             }
         </style>
+</head>
 
-    </head>
-<<<<<<< HEAD
-=======
+<body>
 
-    <body>
->>>>>>> dev_comptes_utilisateurs
-
-    <body>
-       <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between">
-           <a class="navbar-brand" href="{{ url_for('accueil') }}">
-               <img src="../static/images/logo.jpg" width="40" height="40" class="d-inline-block align-top" alt="">
-               HagiograPy</a>
-       </nav>
-      {% block afternav %}{%endblock%}
       <div class="container">
-<<<<<<< HEAD
-=======
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
           <a class="navbar-brand" href="{{ url_for('accueil') }}">Hagiograpy</a>
-
           <ul class="navbar-nav mr-auto">
             {% if not current_user.is_authenticated %}
               <li class="nav-item">
@@ -52,20 +39,17 @@
         </nav>
       </div>
 
-         <div class="jumbotron jumbotron-fluid" style="height: 200px"  id="banner">
-             <!--Search Bar-->
-             <form class="form-inline text-center" method = "GET"   >
-                 <input class="form-control" name="query"  type="text" placeholder="Recherche rapide">
-                 <button class="btn btn-dark" type="submit" >Rechercher</button>
-             </form>
-            <div class="container">
-            </div>
-        </div>
+      <div class="jumbotron jumbotron-fluid" style="height: 250px"  id="banner">
+          <!--Search Bar-->
+              <form class="form-inline text-center" method = "GET"   >
+                  <input class="form-control" name="query"  type="text" placeholder="Recherche rapide">
+                  <button class="btn btn-dark" type="submit" >Rechercher</button>
+              </form>
+      </div>
 
       {% block afternav %}{%endblock%}
 
       <div class="container">
->>>>>>> dev_comptes_utilisateurs
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
           <div class="row">
@@ -76,34 +60,26 @@
               </div>
           </div>
           {% endif %}
-<<<<<<< HEAD
+
         {% endwith %}
         <div class="row">
-=======
-          {% endwith %}
-          <div class="row">
->>>>>>> dev_comptes_utilisateurs
             <div class="col">
             {% block corps %}{% endblock %}
             </div>
           </div>
       </div>
 
-    </body>
+</body>
 
-<<<<<<< HEAD
+
 <!-- Footer -->
 <footer class="page-footer font-small lighten-3 pt-4 text-white bg-dark">
-
   <!-- Footer Elements -->
   <div class="container">
-
     <!--Grid row-->
     <div class="row">
-
       <!--Grid column-->
       <div class="col-lg-2 col-md-12 mb-4">
-
         <!--Image-->
         <div class="view overlay z-depth-1-half">
           <img src="../static/images/191.jpg" class="img-fluid" alt="">
@@ -111,13 +87,10 @@
             <div class="mask rgba-white-light"></div>
           </a>
         </div>
-
       </div>
       <!--Grid column-->
-
       <!--Grid column-->
       <div class="col-lg-2 col-md-6 mb-4">
-
         <!--Image-->
         <div class="view overlay z-depth-1-half">
           <img src="../static/images/146.jpg" class="img-fluid" alt="">
@@ -125,13 +98,10 @@
             <div class="mask rgba-white-light"></div>
           </a>
         </div>
-
       </div>
       <!--Grid column-->
-
       <!--Grid column-->
       <div class="col-lg-2 col-md-6 mb-4">
-
         <!--Image-->
         <div class="view overlay z-depth-1-half">
           <img src="../static/images/133.jpg" class="img-fluid" alt="">
@@ -139,13 +109,10 @@
             <div class="mask rgba-white-light"></div>
           </a>
         </div>
-
       </div>
       <!--Grid column-->
-
       <!--Grid column-->
       <div class="col-lg-2 col-md-12 mb-4">
-
         <!--Image-->
         <div class="view overlay z-depth-1-half">
           <img src="../static/images/183.jpg" class="img-fluid" alt="">
@@ -153,13 +120,10 @@
             <div class="mask rgba-white-light"></div>
           </a>
         </div>
-
       </div>
       <!--Grid column-->
-
       <!--Grid column-->
       <div class="col-lg-2 col-md-6 mb-4">
-
         <!--Image-->
         <div class="view overlay z-depth-1-half">
           <img src="../static/images/173.jpg" class="img-fluid" alt="">
@@ -167,10 +131,8 @@
             <div class="mask rgba-white-light"></div>
           </a>
         </div>
-
       </div>
       <!--Grid column-->
-
       <!--Grid column-->
       <div class="col-lg-2 col-md-6 mb-4">
 
@@ -181,24 +143,21 @@
             <div class="mask rgba-white-light"></div>
           </a>
         </div>
-
       </div>
       <!--Grid column-->
-
     </div>
     <!--Grid row-->
-
   </div>
   <!-- Footer Elements -->
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2019 HagiograPY<br/><br/>
-      <a href="www.chartes.psl.eu"><img src="http://www.chartes.psl.eu/sites/all/themes/enc_base/images/public/logo-ecole-nationale-des-chartes-header.png" class="img-fluid" alt=""></a>
+  <div class="footer-copyright text-center py-3">
+      <p>© Hagiograpy - TNAH, prom. 2019<p/>
+      <a href="http://www.chartes.psl.eu/fr/cursus/master-technologies-numeriques-appliquees-histoire"><img src="http://www.chartes.psl.eu/sites/all/themes/enc_base/images/public/logo-ecole-nationale-des-chartes-header.png" class="img-fluid" alt="" width="150"></a>
   </div>
   <!-- Copyright -->
 
 </footer>
 <!-- Footer -->
-=======
->>>>>>> dev_comptes_utilisateurs
+
 </html>

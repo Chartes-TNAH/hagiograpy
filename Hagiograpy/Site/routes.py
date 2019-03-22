@@ -15,12 +15,8 @@ def accueil():
 
 @app.route("/oeuvre/<int:vie_id>")
 def oeuvre(vie_id):
-<<<<<<< HEAD
-    """Création d'une page pour une vie de Saint
 
-=======
-    """ Création d'une page pour une vie de Saint
->>>>>>> dev_comptes_utilisateurs
+    """Création d'une page pour une vie de Saint
     :param vie_id: Id de la vie clé primaire de la table oeuvre dans la base de données
     :type vie_id: texte
     :returns: création de page
@@ -29,14 +25,8 @@ def oeuvre(vie_id):
     unique_vie=Oeuvre.query.filter(Oeuvre.IdOeuvre==vie_id).first()
     # On fait la requête sur la table Saint mais on l'a filtre en récupérant dans la base à travers la relation oeuvres
     # n'importe qu'elle valeur dont Oeuvre.idOeuvre correspond à la valeur d'entrée
-<<<<<<< HEAD
-    saint_vie1=Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre==vie_id)).first()
-    saint_vie2=Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre==vie_id)).all()
-    return render_template("pages/vie.html", nom="Site", oeuvre=unique_vie, saints=saint_vie2, saint=saint_vie1)
-=======
     saint_vie1 = Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre == vie_id)).first()
     saint_vie2 = Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre == vie_id)).all()
-
     return render_template("pages/vie.html", nom="Site", oeuvre=unique_vie, saints=saint_vie2,saint=saint_vie1)
 
 
@@ -81,9 +71,7 @@ def connexion():
             return redirect("/")
         else:
             flash("Les identifiants n'ont pas été reconnus", "error")
-
     return render_template("pages/connexion.html")
-
 
 
 @app.route("/deconnexion", methods=["POST", "GET"])
@@ -92,4 +80,3 @@ def deconnexion():
         logout_user()
     flash("Vous êtes déconnecté-e", "info")
     return redirect("/")
->>>>>>> dev_comptes_utilisateurs
