@@ -31,6 +31,8 @@ class Saint(db.Model):
     Biographie=db.Column(db.Text)
     oeuvre = db.relationship('Oeuvre', secondary=Jointure_Saint_Oeuvre, backref='saint')
 
+
+
 class Institution(db.Model):
     __tablename__="institution"
     IdInstitution=db.Column(db.Integer, unique=True, primary_key=True, autoincrement=True)
@@ -67,3 +69,8 @@ class Localisation (db.Model):
     __tablename="localisation"
     IdLocalisation=db.Column(db.Integer, unique=True, primary_key=True, autoincrement=True)
     Ville=db.Column(db.TEXT)
+
+"""    def ajouter(saint, titre, auteur, langue, incipit, explicit, Lien_site, Folio, Date_production, Lieu_production,
+                Copiste, Cote, Titre, Nb_feuillets, Provenance, Support, Hauteur, Largeur, Institution):"""
+
+

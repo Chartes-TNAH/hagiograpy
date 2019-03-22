@@ -14,6 +14,7 @@ app = Flask(
 
 # On configure la base de données
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./db_HagiograPY'
+app.secret_key='egrgerege'
 # On initie l'extension
 db = SQLAlchemy(app)
 
