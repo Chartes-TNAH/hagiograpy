@@ -3,10 +3,10 @@ from flask import render_template
 
 from .app import app
 from .modeles.donnees import Oeuvre, Saint
-from .modeles.donnees import User
+from .modeles.utilisateurs import User
 from .constantes import RESULTS_PER_PAGE
 from flask_login import login_user, current_user, logout_user
-from flask import request
+from flask import flash, redirect, request
 
 
 @app.route("/")
@@ -23,7 +23,7 @@ def oeuvre(vie_id):
     :rtype: page HTML de la vie souhaité
     """
     unique_vie=Oeuvre.query.filter(Oeuvre.IdOeuvre==vie_id).first()
-    #On fait la requête sur la table Saint mais on l'a filtre en récupérant dans la base à travers la relation oeuvres
+    # On fait la requête sur la table Saint mais on l'a filtre en récupérant dans la base à travers la relation oeuvres
     # n'importe qu'elle valeur dont Oeuvre.idOeuvre correspond à la valeur d'entrée
     saint_vie1 = Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre == vie_id)).first()
     saint_vie2 = Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre == vie_id)).all()
