@@ -80,3 +80,7 @@ def deconnexion():
         logout_user()
     flash("Vous êtes déconnecté-e", "info")
     return redirect("/")
+
+@app.route('/about')
+def about():
+    return render_template("pages/a-propos.html", nom="Site")
