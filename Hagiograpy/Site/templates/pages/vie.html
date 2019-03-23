@@ -31,10 +31,10 @@ La taille des images est adaptative - responsive design.
             <img src="{{oeuvre.URL}}.highres" class="img-fluid" alt="Responsive image" alt="{{oeuvre.Titre}}" title="{{oeuvre.Titre}}"/>
         </p> -->
 
-<!-- Autre méthide : inclusion du visualiseur OpenSeaDragon -->
+<!-- Autre méthode : inclusion du visualiseur OpenSeaDragon -->
 <!-- Dès lors que les images n'ont pas été au préalable tuilées et stockées dans static/images, on ne peut appeler des .dzi -->
 <div id="openseadragon1" style="width: 800px; height: 600px;"></div>
-<script src="../static/openseadragon/openseadragon.min.js"></script>
+<script src="../static/openseadragon/scripts/openseadragon.min.js"></script>
 <script type="text/javascript">
     var viewer = OpenSeadragon({
         id: "openseadragon1",
