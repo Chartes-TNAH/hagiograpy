@@ -22,6 +22,7 @@ class Oeuvre(db.Model):
     Incipit=db.Column(db.Text)
     Explicit=db.Column(db.Text)
     URL = db.Column(db.Text)
+    IIIF = db.Column(db.Text)
     Folios=db.Column(db.Text)
     saints = db.relationship('Saint', secondary=Jointure_Saint_Oeuvre, backref='oeuvres')
 
