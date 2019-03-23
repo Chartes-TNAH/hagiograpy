@@ -14,6 +14,7 @@
                 background-image: url({{url_for("static", filename="images/testimage.jpg")}});
                 background-size: cover, auto;
             }
+
         </style>
 </head>
 
@@ -24,6 +25,9 @@
           <a class="navbar-brand" href="{{ url_for('accueil') }}">Hagiograpy</a>
           <ul class="navbar-nav mr-auto">
             {% if not current_user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('rechercheavancee')}}">Recherche avancée</a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="{{url_for('inscription')}}">Inscription</a>
               </li>
@@ -36,6 +40,7 @@
               </li>
             {% endif %}
           </ul>
+
         </nav>
       </div>
 
@@ -45,6 +50,11 @@
                   <input class="form-control" name="query"  type="text" placeholder="Recherche rapide">
                   <button class="btn btn-dark" type="submit" >Rechercher</button>
               </form>
+          <!--
+          <input type="search" name="keyword" class="form-control form-control-lg" type="text" placeholder="Recherche rapide">
+          <span class="input-group-btn">
+              <button class="btn btn-primary btn-lg" href="#" role="button">Rechercher</button>
+          </span> -->
       </div>
 
       {% block afternav %}{%endblock%}
@@ -152,7 +162,7 @@
 
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">
-      <p>© Hagiograpy - TNAH, prom. 2019<p/>
+      <p>© Hagiograpy - TNAH, prom. 2019</p>
       <a href="http://www.chartes.psl.eu/fr/cursus/master-technologies-numeriques-appliquees-histoire"><img src="http://www.chartes.psl.eu/sites/all/themes/enc_base/images/public/logo-ecole-nationale-des-chartes-header.png" class="img-fluid" alt="" width="150"></a>
   </div>
   <!-- Copyright -->

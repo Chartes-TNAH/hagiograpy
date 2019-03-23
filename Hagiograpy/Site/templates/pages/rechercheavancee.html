@@ -1,0 +1,107 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}| {{titre}}{%endblock%}
+
+{% block corps %}
+
+<h1>{{titre}} avancée</h1>
+<!--Cette page contient un formulaire de recherche avancée dont les résultats sont ensuite affichés sur la page resultats_avances -->
+
+<div class = "container" id="formulaire-recherche-avancee" style="padding-top: 5%; padding-bottom: 5%">
+    <h2>Formulaire de recherche avancée</h2>
+
+    <form action="{{url_for('resultats_avances')}}" method="GET" id="recherche_form">
+
+        <!--Ce premier champ de recherche est constitué d'un champ de recherche avancée similaire à celui présent dans notre barre de
+                navigation.-->
+        <div class="form-group">
+					<label>Recherche plein texte dans tous les champs des notices</label>
+					<input class="form-control" type="text" name="motclef" placeholder="Termes à rechercher">
+        </div>
+
+            <!--Cette partie de la recherche avancée est constituée de drop-downs : il semblait en effet plus pertinent de
+            requêter par une liste de valeurs proposées les tables comportant peu de valeurs différentes.-->
+
+
+        <div class="form-group">
+					<label>Saint / Sainte</label>
+					<select class="form-control" name="saint">
+                        <option value="all">Sélectionner une valeur</option>
+						{% for Nom_saint in saint %}
+                   			<option value="{{Saint.Nom_saint}}">{{Saint.Nom_saint}}</option>
+               			{% endfor %}
+						<!-- Ce type de boucle nous permet de générer une liste déroulante avec toutes les valeurs du champ
+						diplome_label ; le même principe s'applique pour les champs du formulaire ci-dessous -->
+					</select>
+		</div>
+
+        <div class="form-group">
+					<label>Titre du texte</label>
+					<select class="form-control" name="texte">
+                        <option value="all">Sélectionner une valeur</option>
+						{% for Titre in oeuvre %}
+                   			<option value="{{Oeuvre.Titre}}">{{Oeuvre.Titre}}</option>
+               			{% endfor %}
+						<!-- Ce type de boucle nous permet de générer une liste déroulante avec toutes les valeurs du champ
+						diplome_label ; le même principe s'applique pour les champs du formulaire ci-dessous -->
+					</select>
+		</div>
+
+		<div class="form-group">
+					<label>Cote</label>
+					<select class="form-control" name="cote">
+                         <option value="all">Sélectionner une valeur</option>
+						{% for Cote in manuscrit %}
+                                <option value="{{Manuscrit.Cote}}">{{Manuscrit.Cote}}</option>
+               			{% endfor %}
+					</select>
+        </div>
+
+        <div class="form-group">
+					<label>Etablissement</label>
+					<select class="form-control" name="institution">
+                         <option value="all">Sélectionner une valeur</option>
+						{% for Nom_institution in institution %}
+                                <option value="{{Institution.Nom_institution}}">{{Institution.Nom_institution}}</option>
+               			{% endfor %}
+					</select>
+		</div>
+
+        <div class="form-group">
+					<label>Ville</label>
+					<select class="form-control" name="ville">
+                         <option value="all">Sélectionner une valeur</option>
+						{% for Ville in localisation %}
+                                <option value="{{Localisation.Ville}}">{{Localisation.Ville}}</option>
+               			{% endfor %}
+					</select>
+        </div>
+
+        <div class="form-group">
+					<label>Date de production du témoin</label>
+					<select class="form-control" name="date_prod">
+                         <option value="all">Sélectionner une valeur</option>
+						{% for Date_production in realisation %}
+                                <option value="{{Realisation.Date_production}}">{{Realisation.Date_production}}</option>
+               			{% endfor %}
+					</select>
+        </div>
+
+        <div class="form-group">
+					<label>Lieu de production du témoin</label>
+					<select class="form-control" name="lieu_prod">
+                         <option value="all">Sélectionner une valeur</option>
+						{% for Lieu_production in realisation %}
+                                <option value="{{Realisation.Lieu_production}}">{{Realisation.Lieu_production}}</option>
+               			{% endfor %}
+					</select>
+        </div>
+
+
+        <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search">Rechercher</button>
+
+    </form>
+</div>
+
+
+{% endblock %}
