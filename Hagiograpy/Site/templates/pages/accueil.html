@@ -1,0 +1,22 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+
+<h1>HagiograPY</h1>
+<h3>Le site des hagiographies développé en Python</h3>
+
+<p>Ce site recense des <em>Vies de saints</em> issues de recueils hagiographiques. Une vignette de la page concernée est fournie. Des liens vers le manuscrit contenant la Vie de saint ainsi que vers le manifeste JSON sont également mis à la disposition.
+        <br/>Les internautes sont invités à enrichir la base en ajoutant des œuvres grâce au formulaire dédié.</p>
+
+    {% if oeuvres %}
+    <p>Pour lors, la base recense {{oeuvres|length}} oeuvres :</p>
+        <ul>
+            {% for oeuvre in oeuvres %}
+            <li><a href="{{url_for('oeuvre', vie_id=oeuvre.IdOeuvre)}}">{{oeuvre.Titre}}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+{% endblock %}
+
