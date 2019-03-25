@@ -144,3 +144,7 @@ def deconnexion():
 @app.route('/about')
 def about():
     return render_template("pages/a-propos.html", nom="Site")
+
+@app.route('/cgu')
+def cgu():
+    return render_template("pages/cgu.html", nom="Site")
