@@ -19,9 +19,11 @@ app = Flask(
     static_folder=statics
 )
 
+# On configure le secret
+app.config['SECRET_KEY'] = SECRET_KEY
 # On configure la base de données
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./db_HagiograPY'
-app.secret_key='test'
+
 # On initie l'extension
 db = SQLAlchemy(app)
 
@@ -29,7 +31,7 @@ db = SQLAlchemy(app)
 # On met en place la gestion d'utilisateur-rice-s
 login = LoginManager(app)
 
-from .routes import accueil, oeuvre, inscription, connexion, deconnexion
+from .routes import accueil, oeuvre, inscription, connexion, deconnexion, formulaire
 
 if __name__ == "__main__":
     app.run(debug=True)
