@@ -31,6 +31,9 @@
               </li>
             {% else %}
               <li class="nav-item">
+                <a class="nav-link" href="{{url_for('formulaire')}}">Formulaire</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="{{url_for('deconnexion')}}">Déconnexion ({{current_user.user_nom}})</a>
               </li>
             {% endif %}
@@ -55,8 +58,9 @@
               </form>
       </div>
 
-      {% block afternav %}{%endblock%}
 
+        </div>
+      {% block afternav %}{%endblock%}
       <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
@@ -68,8 +72,8 @@
               </div>
           </div>
           {% endif %}
-
         {% endwith %}
+
         <div class="row">
             <div class="col">
             {% block corps %}{% endblock %}
