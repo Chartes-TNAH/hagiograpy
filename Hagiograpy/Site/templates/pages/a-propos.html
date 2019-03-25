@@ -1,0 +1,32 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+
+<h1>À propos</h1>
+<p>Cette application web est développée dans le cadre du Master 2 <em>Technologies numériques appliquées à l'histoire</em> de l'École nationale des chartes.</p>
+
+<h4>Description du projet</h4>
+
+HagiograPY est une application web permettant de donner accès à de la littérature hagiographique médiévale.
+
+HagiograPY permet ainsi de consulter des <em>Vies de saints</em> par : nom de saint ; titre d'oeuvre ; auteur de l'oeuvre.
+
+<h4>Comment fonctionne HagiograPY</h4>
+
+Les différentes pages s'appuient sur les langages HTML, CSS, JavaScript et Python 3, ainsi que sur une base de données MySQL.
+
+<h4>Comment installer HagiograPY</h4>
+
+Télécharger le dossier <a href="https://github.com/Chartes-TNAH/hagiograpy">GitHub</a>. Nous recommandons la création d'un environnement virtuel d'après le fichier requirements.txt. Ouvrir le premier dossier "hagiograpy" et lancer le fichier run.py.
+
+<h1>Contributeurs</h1>
+<ul>
+    <li>Clément Andrieux</li>
+    <li>Corentin Faye</li>
+    <li>Olivier Jacquot</li>
+    <li>Pierre-Louis Pinault</li>
+</ul>
+ <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>
+
+{% endblock %}
+

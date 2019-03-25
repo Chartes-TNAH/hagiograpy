@@ -1,8 +1,16 @@
 {% extends "conteneur.html" %}
+
 {% block corps %}
-<h1>Bienvenue !</h1>
+
+<h1>HagiograPY</h1>
+<h3>Le site des hagiographies développé en Python</h3>
+
+<p>Ce site recense des <em>Vies de saints</em> issues de recueils hagiographiques. Pour chaque saint recensé, un lien donne accès au manuscrit contenant la Vie de saint ainsi que vers le <a href="https://developer.mozilla.org/fr/docs/Mozilla/Add-ons/WebExtensions/manifest.json">manifeste JSON</a> correspondant.<br/>Le visualiseur <a href="https://openseadragon.github.io/">Openseadragon</a> permet de consulter l'image numérique de la page concernée en haute résolution grâce à l'<a href="https://iiif.io/">International Image Interoperability Framework (IIIF)</a>.<br/>
+Les internautes sont invités à enrichir la base en ajoutant des œuvres grâce au formulaire dédié.
+</p>
+
     {% if oeuvres %}
-    <p>Il y a {{oeuvres|length}} oeuvres enregistrées :</p>
+    <p>Pour lors, la base recense {{oeuvres|length}} oeuvres :</p>
         <ul>
             {% for oeuvre in oeuvres %}
             <li><a href="{{url_for('oeuvre', vie_id=oeuvre.IdOeuvre)}}">{{oeuvre.Titre}}</a></li>
@@ -12,3 +20,4 @@
         <p>La base de données est en cours de constitution</p>
     {% endif %}
 {% endblock %}
+

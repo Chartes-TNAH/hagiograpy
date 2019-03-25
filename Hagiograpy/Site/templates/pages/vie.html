@@ -9,18 +9,45 @@
         <h1>{{oeuvre.Titre}}</h1>
         <dl>
             <dt>Saint</dt><dd>{{saint.Nom_saint}}</dd>
-            {% for saint in saints %}
-            <dt>Saint</dt><dd>{{saint.Nom_saint}}</dd>
-            {% endfor %}
-            <dt>Titre:</dt><dd>{{oeuvre.Titre}}</dd>
-            <dt>Langue:</dt><dd>{{oeuvre.Langue}}</dd>
+            <dt>Titre</dt><dd>{{oeuvre.Titre}}</dd>
+            <dt>Auteur</dt><dd>{{oeuvre.Auteur}}</dd>
+            <dt>Langue</dt><dd>{{oeuvre.Langue}}</dd>
             <dt>Incipit</dt><dd>{{oeuvre.Incipit}}</dd>
-            <dt>Expicit</dt><dd>{{oeuvre.Expicit}}</dd>
+            <dt>Explicit</dt><dd>{{oeuvre.Explicit}}</dd>
             <dt>Folios</dt><dd>{{oeuvre.Folios}}</dd>
-
+            <dt>URL de la page</dt><dd><a href="{{oeuvre.URL}}.item">{{oeuvre.URL}}.item</a></dd>
+            <dt>Manifeste IIIF</dt><dd><a href="{{oeuvre.IIIF}}">{{oeuvre.IIIF}}</a></dd>
         </dl>
+        <h2>Image</h2>
+<!-- La BDD stocke un nom de fichier image (url) sans extension.
+L'extension .item est ajoutée ci-dessus pour éviter de n'afficher qu'une page et permettre la navigation
+au sein du manuscrit. -->
 
-    {% else %}
+<!-- Ci-dessous, un manière d'afficher des images où l'on sert un .highres.
+Pour respecter les règles d'accessibilité, l'alt et le title de l'image sont fournis.
+La taille des images est adaptative - responsive design.
+
+        <p>
+            <img src="{{oeuvre.URL}}.highres" class="img-fluid" alt="Responsive image" alt="{{oeuvre.Titre}}" title="{{oeuvre.Titre}}"/>
+        </p> -->
+
+<!-- Autre méthode : inclusion du visualiseur OpenSeaDragon -->
+<!-- Dès lors que les images n'ont pas été au préalable tuilées et stockées dans static/images, on ne peut appeler des .dzi -->
+<div id="openseadragon1" style="width: 800px; height: 600px;"></div>
+<script src="../static/openseadragon/scripts/openseadragon.min.js"></script>
+<script type="text/javascript">
+    var viewer = OpenSeadragon({
+        id: "openseadragon1",
+        preserveViewport: true,
+        visibilityRatio: 1,
+        minZoomLevel: 1,
+        defaultZoomLevel: 1,
+        prefixUrl: "../static/openseadragon/images/",
+        tileSources: ["{{oeuvre.IIIF}}"]
+    });
+</script>
+
+{% else %}
         <p>La base de données est en cours de constitution</p>
     {% endif %}
     <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>

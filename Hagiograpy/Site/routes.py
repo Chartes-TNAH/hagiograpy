@@ -1,7 +1,11 @@
 from flask import render_template, request, flash, redirect
 
-
 from .app import app
+
+from .modeles.utilisateurs import User
+from .constantes import RESULTS_PER_PAGE
+from flask_login import login_user, current_user, logout_user
+from flask import flash, redirect, request
 from .modeles.donnees import Oeuvre, Saint, controle, Jointure_Saint_Oeuvre, Realisation, Jointure_Oeuvre_Realisation, Manuscrit, Jointure_Manuscrit_Realisation, Institution, Localisation
 
 
@@ -12,19 +16,18 @@ def accueil():
 
 @app.route("/oeuvre/<int:vie_id>")
 def oeuvre(vie_id):
-    """ Création d'une page pour une vie de Saint
 
+    """Création d'une page pour une vie de Saint
     :param vie_id: Id de la vie clé primaire de la table oeuvre dans la base de données
     :type vie_id: texte
     :returns: création de page
-    :rtype: page HTML de la vie souhaité
-    """
+    :rtype: page HTML de la vie souhaitée"""
+
     unique_vie=Oeuvre.query.filter(Oeuvre.IdOeuvre==vie_id).first()
-    #On fait la requête sur la table Saint mais on l'a filtre en récupérant dans la base à travers la relation oeuvres
+    # On fait la requête sur la table Saint mais on l'a filtre en récupérant dans la base à travers la relation oeuvres
     # n'importe qu'elle valeur dont Oeuvre.idOeuvre correspond à la valeur d'entrée
     saint_vie1 = Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre == vie_id)).first()
-    saint_vie2=Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre==vie_id)).all()
-
+    saint_vie2 = Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre == vie_id)).all()
     return render_template("pages/vie.html", nom="Site", oeuvre=unique_vie, saints=saint_vie2,saint=saint_vie1)
 
 @app.route("/formulaire", methods=["GET", "POST"])
@@ -40,6 +43,7 @@ def formulaire():
         explicit=request.form.get("Explicit",None)
         folios=request.form.get("Folios",None)
         liensite=request.form.get("Lien_site", None)
+        iiif=request.form.get("IIIF",None)
         #Realisation
         copiste=request.form.get("Copiste", None)
         dateprod=request.form.get("Date_production", None)
@@ -56,7 +60,7 @@ def formulaire():
         localisation=request.form.get("Localisation",None)
 
 
-        statut, donnees=controle(nomSaint,titreReal,langue,incipit,explicit,folios,dateprod,lieuprod,cote,nbfeuillet,support,hauteur,largeur,institution,localisation)
+        statut, donnees=controle(nomSaint,titreReal,langue,incipit,explicit,folios,dateprod,lieuprod,cote,nbfeuillet,support,hauteur,largeur,institution,localisation,iiif)
 
 
         if statut is True:
@@ -66,7 +70,7 @@ def formulaire():
             id_saint = Saint.ajouter(nomSaint)
             id_oeuvre = Oeuvre.ajouter(titreReal, auteur,
                                        langue, incipit,
-                                       explicit,folios,liensite)
+                                       explicit,folios,liensite,iiif)
             id_realisation = Realisation.ajouter(dateprod,
                                                  lieuprod,
                                                  copiste)
@@ -85,3 +89,58 @@ def formulaire():
 
     return render_template("pages/formulaire.html", nom="Site")
 
+
+@app.route("/register", methods=["GET", "POST"])
+def inscription():
+    """ Route gérant les inscriptions
+    """
+    # Si on est en POST, cela veut dire que le formulaire a été envoyé
+    if request.method == "POST":
+        statut, donnees = User.creer(
+            login=request.form.get("login", None),
+            email=request.form.get("email", None),
+            nom=request.form.get("nom", None),
+            motdepasse=request.form.get("motdepasse", None)
+        )
+        if statut is True:
+            flash("Enregistrement effectué. Identifiez-vous maintenant", "success")
+            return redirect("/")
+        else:
+            flash("Les erreurs suivantes ont été rencontrées : " + ",".join(donnees), "error")
+            return render_template("pages/inscription.html")
+    else:
+        return render_template("pages/inscription.html")
+
+
+@app.route("/connexion", methods=["POST", "GET"])
+def connexion():
+    """ Route gérant les connexions
+    """
+    if current_user.is_authenticated is True:
+        flash("Vous êtes déjà connecté-e", "info")
+        return redirect("/")
+    # Si on est en POST, cela veut dire que le formulaire a été envoyé
+    if request.method == "POST":
+        utilisateur = User.identification(
+            login=request.form.get("login", None),
+            motdepasse=request.form.get("motdepasse", None)
+        )
+        if utilisateur:
+            flash("Connexion effectuée", "success")
+            login_user(utilisateur)
+            return redirect("/")
+        else:
+            flash("Les identifiants n'ont pas été reconnus", "error")
+    return render_template("pages/connexion.html")
+
+
+@app.route("/deconnexion", methods=["POST", "GET"])
+def deconnexion():
+    if current_user.is_authenticated is True:
+        logout_user()
+    flash("Vous êtes déconnecté-e", "info")
+    return redirect("/")
+
+@app.route('/about')
+def about():
+    return render_template("pages/a-propos.html", nom="Site")

@@ -1,5 +1,6 @@
 from .. app import db
 
+
 Jointure_Saint_Oeuvre= db.Table('Jointure_Saint_Oeuvre',
                           db.Column('Oeuvre_IdOeuvre', db.Integer, db.ForeignKey('oeuvre.IdOeuvre'), primary_key=True),
                           db.Column('Saint_IdSaint', db.Integer, db.ForeignKey('saint.IdSaint'),primary_key=True))
@@ -19,14 +20,15 @@ class Oeuvre(db.Model):
     Auteur=db.Column(db.Text)
     Langue=db.Column(db.Text)
     Incipit=db.Column(db.Text)
-    Excipit=db.Column(db.Text)
+    Explicit=db.Column(db.Text)
+    URL=db.Column(db.Text)
+    IIIF = db.Column(db.Text)
     Folios = db.Column(db.Text)
-    Lien_site=db.Column(db.Text)
     saint = db.relationship('Saint', secondary=Jointure_Saint_Oeuvre, backref='oeuvre')
     realisations= db.relationship('Realisation', secondary=Jointure_Oeuvre_Realisation, backref='oeuvre')
 
     @staticmethod
-    def ajouter(titre, auteur, langue, incipit, excipit,folios, lien_site):
+    def ajouter(titre, auteur, langue, incipit, excipit,folios, lien_site,iiif):
         """
 
         :param titre: Titre de l'oeuvre ajouter dans formulaire.html
@@ -36,22 +38,23 @@ class Oeuvre(db.Model):
         :param excipit: Excipit de l'oeuvre ajouter dans formulaire.html
         :param folios: Folio de l'oeuvre ajouter dans formulaire.html
         :param lien_site: Lien du site ajouter dans formulaire.html
+        :param iiif: Lien du manifeste JSON ajouter dans formulaire.html
         :return: Récupère l'id de l'oeuvre rajouter ou présent dans la base
         """
-        test=Oeuvre.query.filter(Oeuvre.Titre==titre).filter(Oeuvre.Auteur==auteur). filter(Oeuvre.Langue==langue).filter(Oeuvre.Incipit==incipit).filter(Oeuvre.Excipit==excipit).filter(Oeuvre.Folios==folios).filter(Oeuvre.Lien_site==lien_site).scalar()
+        test=Oeuvre.query.filter(Oeuvre.Titre==titre).filter(Oeuvre.Auteur==auteur). filter(Oeuvre.Langue==langue).filter(Oeuvre.Incipit==incipit).filter(Oeuvre.Explicit==excipit).filter(Oeuvre.Folios==folios).filter(Oeuvre.URL==lien_site).filter(Oeuvre.IIIF==iiif).scalar()
 
         if test is None:
-            ajout_oeuvre=Oeuvre(Titre=titre,Auteur=auteur,Langue=langue,Incipit=incipit,Excipit=excipit,Lien_site=lien_site,Folios=folios)
+            ajout_oeuvre=Oeuvre(Titre=titre,Auteur=auteur,Langue=langue,Incipit=incipit,Explicit=excipit,URL=lien_site,IIIF=iiif,Folios=folios)
             db.session.add(ajout_oeuvre)
             db.session.commit()
             recup=Oeuvre.query.filter(Oeuvre.Titre == titre).filter(Oeuvre.Auteur == auteur).filter(
-                Oeuvre.Langue == langue).filter(Oeuvre.Incipit == incipit).filter(Oeuvre.Excipit == excipit).filter(
-                Oeuvre.Folios == folios).filter(Oeuvre.Lien_site == lien_site).first()
+                Oeuvre.Langue == langue).filter(Oeuvre.Incipit == incipit).filter(Oeuvre.Explicit == excipit).filter(
+                Oeuvre.Folios == folios).filter(Oeuvre.URL == lien_site).filter(Oeuvre.IIIF==iiif).first()
             return recup.IdOeuvre
         else:
             recup = Oeuvre.query.filter(Oeuvre.Titre == titre).filter(Oeuvre.Auteur == auteur).filter(
-                Oeuvre.Langue == langue).filter(Oeuvre.Incipit == incipit).filter(Oeuvre.Excipit == excipit).filter(
-                Oeuvre.Folios == folios).filter(Oeuvre.Lien_site == lien_site).first()
+                Oeuvre.Langue == langue).filter(Oeuvre.Incipit == incipit).filter(Oeuvre.Explicit == excipit).filter(
+                Oeuvre.Folios == folios).filter(Oeuvre.URL== lien_site).filter(Oeuvre.IIIF==iiif).first()
             return recup.IdOeuvre
 
 
@@ -231,7 +234,7 @@ class Localisation (db.Model):
 
 
 def controle(saint, titre, langue, incipit, explicit, Folio, Date_production, Lieu_production,
-                Cote, Nb_feuillets,  Support, Hauteur, Largeur, Institution,Localisation):
+                Cote, Nb_feuillets,  Support, Hauteur, Largeur, Institution,Localisation,IIIF):
     """
     Controle la présence des mentions obligatoires pour l'ajout de formulaire
     :param saint: texte d'entrée de Saint
@@ -282,6 +285,8 @@ def controle(saint, titre, langue, incipit, explicit, Folio, Date_production, Li
         erreurs.append("Il manque l'institution")
     if not Localisation:
         erreurs.append("Il manque la localisation")
+    if not IIIF:
+        erreurs.append("Il manque le manifeste IIIF")
     if len(erreurs) > 0:
         return False, erreurs
     if len(erreurs)==0:

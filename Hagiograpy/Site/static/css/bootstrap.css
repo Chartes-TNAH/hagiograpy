@@ -4,6 +4,11 @@
  * Copyright 2011-2017 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ @font-face {
+    font-family: 'museo-slab';
+    src: url('fonts/Museo500-Regular.otf');
+    font-style: normal;
+}
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -3624,6 +3629,7 @@ tbody.collapse.show {
   font-size: 1.25rem;
   line-height: inherit;
   white-space: nowrap;
+  text-align: center;
 }
 
 .navbar-brand:focus, .navbar-brand:hover {
@@ -8371,4 +8377,6 @@ a.text-dark:focus, a.text-dark:hover {
 .invisible {
   visibility: hidden !important;
 }
+
+
 /*# sourceMappingURL=bootstrap.css.map */
