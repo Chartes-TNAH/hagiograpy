@@ -31,7 +31,7 @@ db = SQLAlchemy(app)
 # On met en place la gestion d'utilisateur-rice-s
 login = LoginManager(app)
 
-from .routes import accueil, oeuvre, inscription, connexion, deconnexion, formulaire
+from .routes import accueil, oeuvre, inscription, connexion, deconnexion, formulaire, cgu
 
 if __name__ == "__main__":
     app.run(debug=True)
