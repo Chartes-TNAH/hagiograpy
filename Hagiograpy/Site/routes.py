@@ -110,7 +110,7 @@ def inscription():
             return render_template("pages/inscription.html")
     else:
         return render_template("pages/inscription.html")
-
+      
 
 @app.route("/connexion", methods=["POST", "GET"])
 def connexion():
@@ -132,7 +132,7 @@ def connexion():
         else:
             flash("Les identifiants n'ont pas été reconnus", "error")
     return render_template("pages/connexion.html")
-
+  
 
 @app.route("/deconnexion", methods=["POST", "GET"])
 def deconnexion():
@@ -140,10 +140,12 @@ def deconnexion():
         logout_user()
     flash("Vous êtes déconnecté-e", "info")
     return redirect("/")
+  
 
 @app.route('/about')
 def about():
     return render_template("pages/a-propos.html", nom="Site")
+  
 
 @app.route("/recherche")
 def recherche():
@@ -192,4 +194,8 @@ def recherche():
         titre=titre,
         keyword=motclef
     )
+  
 
+@app.route('/cgu')
+def cgu():
+    return render_template("pages/cgu.html", nom="Site")
