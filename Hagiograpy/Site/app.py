@@ -18,7 +18,8 @@ app = Flask(
     template_folder=templates,
     static_folder=statics
 )
-
+# On configure le secret
+app.config['SECRET_KEY'] = SECRET_KEY
 # On configure la base de données
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./db_HagiograPY'
 
