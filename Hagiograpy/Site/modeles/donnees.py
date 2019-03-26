@@ -108,6 +108,7 @@ class Institution(db.Model):
     Nom_institution=db.Column(db.Text)
     Localisation_IdLocalisation= db.Column(db.Integer, db.ForeignKey('localisation.IdLocalisation'))
     ManuscritInstitution=db.relationship('Manuscrit',backref="institution")
+    LocalisationInstitution=db.relationship('Localisation',backref="institution")
 
     @staticmethod
     def ajouter(nominstitution, localisation):
@@ -137,6 +138,7 @@ class Manuscrit(db.Model):
     Largeur=db.Column(db.Text)
     Institution_IdInstitution= db.Column(db.Integer, db.ForeignKey('institution.IdInstitution'))
     manuscrits = db.relationship('Realisation', secondary=Jointure_Manuscrit_Realisation, backref='manuscrit')
+    InstitutionManuscrit=db.relationship('Institution',backref="manuscrit")
 
     @staticmethod
     def ajouter(cote,titre,nb_feuillets,provenance,support,hauteur,largeur,institution_idinstitution):
