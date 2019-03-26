@@ -1,7 +1,7 @@
 from flask import render_template, request, flash, redirect
 
 from .app import app
-
+from sqlalchemy import or_
 from .modeles.utilisateurs import User
 from .constantes import RESULTS_PER_PAGE
 from flask_login import login_user, current_user, logout_user
@@ -144,3 +144,52 @@ def deconnexion():
 @app.route('/about')
 def about():
     return render_template("pages/a-propos.html", nom="Site")
+
+@app.route("/recherche")
+def recherche():
+
+    motclef = request.args.get("keyword", None)
+    page = request.args.get("page", 1)
+
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
+    resultats = []
+
+    titre = "Recherche"
+    if motclef:
+        resultats = Oeuvre.query.filter(or_(
+            Oeuvre.saint.any(Saint.Nom_saint.like("%{}%".format(motclef))),
+            Oeuvre.Titre.like("%{}%".format(motclef)),
+            Oeuvre.Auteur.like("%{}%".format(motclef)),
+            Oeuvre.Langue.like("%{}%".format(motclef)),
+            Oeuvre.Incipit.like("%{}%".format(motclef)),
+            Oeuvre.Explicit.like("%{}%".format(motclef)),
+            Oeuvre.Langue.like("%{}%".format(motclef)),
+            Oeuvre.realisations.any(Realisation.Lieu_production.like("%{}%".format(motclef))),
+            Oeuvre.realisations.any(Realisation.Copiste.like("%{}%".format(motclef))),
+            Oeuvre.realisations.any(Realisation.Date_production.like("%{}%".format(motclef))),
+            Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.Titre.like("%{}%".format(motclef)))),
+            Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.Cote.like("%{}%".format(motclef)))),
+            Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.Nb_feuillets.like("%{}%".format(motclef)))),
+            Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.Support.like("%{}%".format(motclef)))),
+            Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.Hauteur.like("%{}%".format(motclef)))),
+            Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.Largeur.like("%{}%".format(motclef)))),
+            Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.Provenance.like("%{}%".format(motclef)))),
+            Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.InstitutionManuscrit.has(Institution.Nom_institution.like("%{}%".format(motclef))))),
+            Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.InstitutionManuscrit.has(Institution.LocalisationInstitution.has(Localisation.Ville.like("%{}%".format(motclef))))))
+
+        )
+        ).paginate(page=page)
+
+        titre = "Résultat pour la recherche `" + motclef + "`"
+
+    return render_template(
+        "pages/recherche.html",
+        resultats=resultats,
+        titre=titre,
+        keyword=motclef
+    )
+

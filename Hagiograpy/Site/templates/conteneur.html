@@ -52,8 +52,8 @@
 
       <div class="jumbotron jumbotron-fluid" style="height: 250px"  id="banner">
           <!--Search Bar-->
-              <form class="form-inline text-center" method = "GET"   >
-                  <input class="form-control" name="query"  type="text" placeholder="Recherche rapide">
+              <form class="form-inline text-center" action="{{url_for('recherche')}}"  method = "GET"   >
+                  <input class="form-control" name="keyword"  type="text" placeholder="Recherche rapide">
                   <button class="btn btn-dark" type="submit" >Rechercher</button>
               </form>
       </div>
