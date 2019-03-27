@@ -24,11 +24,15 @@ def oeuvre(vie_id):
     :rtype: page HTML de la vie souhaitée"""
 
     unique_vie=Oeuvre.query.filter(Oeuvre.IdOeuvre==vie_id).first()
-    # On fait la requête sur la table Saint mais on l'a filtre en récupérant dans la base à travers la relation oeuvres
+    # On fait la requête sur la table Saint mais on la filtre en récupérant dans la base à travers la relation oeuvres
     # n'importe qu'elle valeur dont Oeuvre.idOeuvre correspond à la valeur d'entrée
     saint_vie1 = Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre == vie_id)).first()
     saint_vie2 = Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre == vie_id)).all()
-    return render_template("pages/vie.html", nom="Site", oeuvre=unique_vie, saints=saint_vie2,saint=saint_vie1)
+    realisation_oeuv = Realisation.query.filter(Realisation.oeuvres.any(Oeuvre.IdOeuvre == vie_id)).first()
+    manuscrit_oeuv = Manuscrit.query.filter(Manuscrit.realisations.any(Realisation.oeuvres.any(Oeuvre.IdOeuvre == vie_id))).first()
+    localisation_oeuv = Localisation.query.filter(Localisation.InstitutionLocalisation.any(Realisation.oeuvres.any(Oeuvre.IdOeuvre == vie_id))).first()
+    lieu_oeuv = Institution.query.filter(Localisation.InstitutionLocalisation.any(Oeuvre.IdOeuvre == vie_id)).first()
+    return render_template("pages/vie.html", nom="Site", oeuvre=unique_vie, realisation=realisation_oeuv, conservation=manuscrit_oeuv, localisation=localisation_oeuv, institution=lieu_oeuv, saint=saint_vie1)
 
 @app.route("/formulaire", methods=["GET", "POST"])
 def formulaire():

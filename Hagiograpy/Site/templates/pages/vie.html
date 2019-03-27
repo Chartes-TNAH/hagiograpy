@@ -18,6 +18,20 @@
             <dt>URL de la page</dt><dd><a href="{{oeuvre.URL}}.item">{{oeuvre.URL}}.item</a></dd>
             <dt>Manifeste IIIF</dt><dd><a href="{{oeuvre.IIIF}}">{{oeuvre.IIIF}}</a></dd>
         </dl>
+        <h2>Manuscrit</h2>
+        <dt>
+            <dt>Copiste</dt><dd>{{realisation.Copiste}}</dd>
+            <dt>Date de production</dt><dd>{{realisation.Date_production}}</dd>
+            <dt>Lieu de production</dt><dd>{{realisation.Lieu_production}}</dd>
+            <dt>Titre du manuscrit</dt><dd>{{conservation.Titre}}</dd>
+            <dt>Cote du manuscrit</dt><dd>{{conservation.Cote}}</dd>
+            <dt>Nombre de feuillets</dt><dd>{{conservation.Nb_feuillets}}</dd>
+            <dt>Provenance</dt><dd>{{conservation.Provenance}}</dd>
+            <dt>Support</dt><dd>{{conservation.Support}}</dd>
+            <dt>Dimensions (H x L)</dt><dd>{{conservation.Hauteur}} x {{conservation.Largeur}} mm</dd>
+            <dt>Lieu de conservation</dt><dd>{{localisation.Ville}}</dd>
+            <dt>Établissement</dt><dd>{{institution.Nom_institution}}</dd>
+        </dl>
         <h2>Image</h2>
 <!-- La BDD stocke un nom de fichier image (url) sans extension.
 L'extension .item est ajoutée ci-dessus pour éviter de n'afficher qu'une page et permettre la navigation
