@@ -1,0 +1,29 @@
+# Ce fichier signale les logiciels requis et leur version pour installer HagiograPY
+
+# Flask Framework
+Flask==1.0.2
+
+# Flask Packages
+Flask-Login==0.4.0
+Flask-SQLAlchemy==2.1
+Flask-User==1.0.1.5
+Flask-Warnings==0.0.2
+Flask-Request
+Flask-Flash
+Flask-Redirect
+
+# Werkzeug
+Werkzeug==0.15.1
+
+# Javascript
+Bootstrap==4.3.1
+Jquery==3.3.1
+Popper==1
+Font-Awesome==5.8.1
+
+# Openseadragon
+Openseadragon==2.4.0
+
+# Python
+Python==3.6.7
+
