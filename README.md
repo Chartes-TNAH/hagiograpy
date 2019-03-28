@@ -1,5 +1,5 @@
 # HagiograPY
-Ce 4devrepository contient l'ensemble des éléments nécessaires à la création d'un catalogue de vie de saints. Cette application web est développée dans le cadre du cours Python du Master 2 Technologies numériques appliquées à l'histoire de l'École nationale des chartes, selon les consignes suivantes :
+Ce repository contient l'ensemble des éléments nécessaires à la création d'un catalogue de vie de saints. Cette application web est développée dans le cadre du cours Python du Master 2 « Technologies numériques appliquées à l'histoire » de l'École nationale des chartes, selon les consignes suivantes :
 
 ## Consignes 
 > En groupe de 3/4 personnes maximum, vous choisirez un sujet au choix parmi la liste proposée. Des limitations différentes peuvent être indiquées pour certains projets. Rendu le 1er avril 2019.  

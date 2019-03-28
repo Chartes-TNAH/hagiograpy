@@ -31,6 +31,9 @@
               </li>
             {% else %}
               <li class="nav-item">
+                <a class="nav-link" href="{{url_for('formulaire')}}">Formulaire</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="{{url_for('deconnexion')}}">Déconnexion ({{current_user.user_nom}})</a>
               </li>
             {% endif %}
@@ -39,6 +42,9 @@
     <li class="nav-item">
       <a class="nav-link" href="https://github.com/Chartes-TNAH/hagiograpy"><img src="../static/images/octocat.png" width="30" height="30" class="d-inline-block align-top" alt="github">   </a>
     </li>
+                 <li class="nav-item">
+      <a class="nav-link" href="{{url_for('about')}}">À propos</a>
+    </li>
     </li>
   </ul>
         </div>
@@ -46,14 +52,15 @@
 
       <div class="jumbotron jumbotron-fluid" style="height: 250px"  id="banner">
           <!--Search Bar-->
-              <form class="form-inline text-center" method = "GET"   >
-                  <input class="form-control" name="query"  type="text" placeholder="Recherche rapide">
+              <form class="form-inline text-center" action="{{url_for('recherche')}}"  method = "GET"   >
+                  <input class="form-control" name="keyword"  type="text" placeholder="Recherche rapide">
                   <button class="btn btn-dark" type="submit" >Rechercher</button>
               </form>
       </div>
 
-      {% block afternav %}{%endblock%}
 
+        </div>
+      {% block afternav %}{%endblock%}
       <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
@@ -65,8 +72,8 @@
               </div>
           </div>
           {% endif %}
-
         {% endwith %}
+
         <div class="row">
             <div class="col">
             {% block corps %}{% endblock %}
@@ -156,7 +163,7 @@
 
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">
-      <p>© HagiograPY - TNAH, prom. 2019<p/>
+      <p>© HagiograPY - TNAH, prom. 2019 - <a class="nav-link" href="{{url_for('cgu')}}">CGU</a><p/>
       <a href="http://www.chartes.psl.eu/fr/cursus/master-technologies-numeriques-appliquees-histoire"><img src="http://www.chartes.psl.eu/sites/all/themes/enc_base/images/public/logo-ecole-nationale-des-chartes-header.png" class="img-fluid" alt="" width="150"></a>
   </div>
   <!-- Copyright -->
