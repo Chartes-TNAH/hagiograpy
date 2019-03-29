@@ -328,15 +328,15 @@ COPY public._realisation (idrealisation, date_production, lieu_production, copis
 --
 
 COPY public._saint (idsaint, nom_saint, biographie) FROM stdin;
-1	Philippe	
-2	Jacques le Mineur	
-3	Euphrasie	
-4	Pélagie	
-5	Marguerite	
-6	Luce (Lucie)	
-7	Sixte	
-8	Longin	
-9	Eulalie	
+1	Philippe	Philippe est un Juif helléniste faisant partie des Sept, les premiers diacres choisis par les membres de l'Église primitive de Jérusalem à l'initiative de l'assemblée des disciples et des apôtres afin d'aider ces derniers. Il ne faut pas le confondre avec l'apôtre Philippe mentionné dans les Évangiles, même si, dans la formation des légendes, les biographies des deux Philippe ont été reliées. Il a également une fonction d'évangéliste en Samarie et favorise la christianisation de l'Éthiopie. Il fait aussi partie des Septante disciples choisis par Jésus-Christ. 
+2	Jacques le Mineur	Jacques d'Alphée ou Jacques, fils d'Alphée, du grec Iάκωβος ὁ τοῦ Ἁλφαίου, est un Juif de Galilée qui fait partie des douze apôtres de Jésus. Dans la tradition du christianisme occidental, il est aussi appelé Jacques le Mineur, pour le distinguer de Jacques de Zébédée, dit Jacques le Majeur, frère de l'apôtre Jean.\n\nIl est présenté comme fils d'Alphée, nom traduit du grec Alphaios, de l'araméen Alpay, lui-même parfois assimilé à Clopas[réf. nécessaire]. Selon l'Évangile de Marc (Mc 2:14), l'apôtre Lévi-Matthieu est aussi fils d'un Alphée. 
+3	Euphrasie	Fille d'Antigone, gouverneur de Lycie, parente de l'empereur Théodose le Grand, elle quitta la maison paternelle pour s'enfermer dans un monastère où elle resta jusqu'à sa mort cachée sous des habits d'homme et se livrant aux pratiques les plus rigoureuses.\n\nElle est fêtée par les Grecs le 25 novembre, par les Latins le 11 février et par les Chrétiens le mars. 
+4	Pélagie	Sainte Pélagie martyre à Tarse est une sainte qui a vécu au IIIe siècle. On la fête le 8 Octobre.\n\nElle aurait été fiancée à l'un des fils de l'empereur Dioclétien. Elle fut curieuse de découvrir le christianisme et, convaincue, décida de se faire baptiser. Ce faisant, elle modifia sa façon de vivre, devint modeste d'aspect et de comportement, ce qui la désigna comme chrétienne. L'empereur, furieux de ce qu'il considérait comme une traîtrise envers son milieu, et par ses attaches, la fit arrêter, enfermer et la condamna à périr dans un bœuf d'airain rougi au feu. 
+5	Marguerite	Marguerite d'Antioche ou Marine d'Antioche ou sainte Marina est une vierge martyre du IVe siècle (vers 305), fêtée le 17 juillet en Orient et le 20 juillet en Occident. Elle est invoquée pour une délivrance, en particulier par les femmes enceintes parce que la légende raconte qu'elle est sortie indemne du ventre du dragon qui l'avait engloutie. À Paris, elle était vénérée dans l'église Saint-Germain-des-Prés près de laquelle la rue du Dragon garde le souvenir d'une enseigne à sa mémoire. 
+6	Luce (Lucie)	Lucie de Cyrène (IVe siècle), avec Cyprille et Aroa, martyres à Cyrène en Libye ; fêtées par l'Église orthodoxe le 4 juillet et par l'Église catholique romaine localement le 5 juillet.
+7	Sixte	Sixte de Reims est un évêque de Reims du IIIe siècle. Il a été proclamé saint. 
+8	Longin	Longin (IVe siècle), Père du désert en Égypte célèbre pour ses apophtegmes.
+9	Eulalie	Sainte Eulalie de Mérida est une vierge martyre morte en 304, célébrée dans un hymne de Prudence (Peristephanon) et dans la célèbre Séquence de sainte Eulalie, premier texte littéraire en français. 
 \.
 
 
