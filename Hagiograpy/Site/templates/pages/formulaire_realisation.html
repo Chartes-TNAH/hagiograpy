@@ -1,0 +1,48 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}| Formulaire Réalisation{%endblock%}
+
+{% block corps %}
+    <nav class=" navbar navbar-light bg-light">
+    <form class="form-inline">
+        <a href="{{url_for('formulaire_saint')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Saint</a>
+        <a href="{{url_for('formulaire')}}"  class="btn btn-sm btn-outline-secondary" type="button">Formulaire Oeuvre</a>
+        <a href="{{url_for('formulaire_manuscrit')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Manuscrit</a>
+        <a href="{{url_for('formulaire_realisation')}}" class="btn btn-outline-success" type="button">Formulaire Realisation</a>
+        <a href="{{url_for('formulaire_institution')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Institution</a>
+    </form>
+
+    </nav>
+
+<h1>Formulaire Manuscrit</h1>
+<form class="form dropdown " method="POST" action="{{url_for('formulaire_manuscrit')}}">
+    <div class="panel panel-info">
+
+            <div class="col-md-12">
+                <h4>Réalisation</h4>
+            </div>
+                        <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Date de production* :</strong>
+                    <input type="text" name="Date_production" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Lieu de production* :</strong>
+                    <input type="text" name="Lieu_production" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Copiste:</strong>
+                    <input type="text" name="Copiste" class="form-control" value="" />
+                </div>
+            </div>
+
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </div>
+</form>
+
+{% endblock %}

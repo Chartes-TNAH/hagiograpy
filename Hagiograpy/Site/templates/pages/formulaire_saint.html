@@ -1,0 +1,38 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}| Formulaire Réalisation{%endblock%}
+
+{% block corps %}
+    <nav class=" navbar navbar-light bg-light">
+    <form class="form-inline">
+        <a href="{{url_for('formulaire_saint')}}" class="btn btn-outline-success" type="button">Formulaire Saint</a>
+        <a href="{{url_for('formulaire')}}"  class="btn btn-sm btn-outline-secondary" type="button">Formulaire Oeuvre</a>
+        <a href="{{url_for('formulaire_manuscrit')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Manuscrit</a>
+        <a href="{{url_for('formulaire_realisation')}}"  class="btn btn-sm btn-outline-secondary" type="button">Formulaire Realisation</a>
+        <a href="{{url_for('formulaire_institution')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Institution</a>
+    </form>
+
+    </nav>
+
+<h1>Formulaire Manuscrit</h1>
+<form class="form dropdown " method="POST" action="{{url_for('formulaire_manuscrit')}}">
+    <div class="panel panel-info">
+
+                    <div class="form-group row">
+            <label for="register-Nom_saint" class="col-sm-2 col-form-label">Nom du Saint* :</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="register-Nom_saint" name="Saint" list="ListeSaint" placeholder="Nom du Saint" data-toggle="dropdown">
+                <datalist id="ListeSaint">
+                {% for nomSaint in Listenomsaint %}
+                    <option data-value="test" value="{{nomSaint.Nom_saint}}">
+                {% endfor %}
+                </datalist>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </div>
+</form>
+
+{% endblock %}

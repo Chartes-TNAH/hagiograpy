@@ -137,7 +137,7 @@ class Manuscrit(db.Model):
     Hauteur=db.Column(db.Text)
     Largeur=db.Column(db.Text)
     Institution_IdInstitution= db.Column(db.Integer, db.ForeignKey('institution.IdInstitution'))
-    manuscrits = db.relationship('Realisation', secondary=Jointure_Manuscrit_Realisation, backref='manuscrit')
+    realisations = db.relationship('Realisation', secondary=Jointure_Manuscrit_Realisation, backref='manuscrit')
     InstitutionManuscrit=db.relationship('Institution',backref="manuscrit")
 
     @staticmethod

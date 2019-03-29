@@ -1,7 +1,7 @@
 from flask import render_template, request, flash, redirect
 
 from .app import app
-from sqlalchemy import or_
+from sqlalchemy import or_, and_
 from .modeles.utilisateurs import User
 from .constantes import RESULTS_PER_PAGE
 from flask_login import login_user, current_user, logout_user
@@ -27,11 +27,17 @@ def oeuvre(vie_id):
     # On fait la requête sur la table Saint mais on l'a filtre en récupérant dans la base à travers la relation oeuvres
     # n'importe qu'elle valeur dont Oeuvre.idOeuvre correspond à la valeur d'entrée
     saint_vie1 = Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre == vie_id)).first()
-    saint_vie2 = Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre == vie_id)).all()
-    return render_template("pages/vie.html", nom="Site", oeuvre=unique_vie, saints=saint_vie2,saint=saint_vie1)
+
+
+
+    return render_template("pages/vie.html", nom="Site", oeuvre=unique_vie,saint=saint_vie1)
 
 @app.route("/formulaire", methods=["GET", "POST"])
 def formulaire():
+    listenomsaint=Saint.query.order_by(Saint.Nom_saint).all()
+    listetitrereal = Oeuvre.query.order_by(Oeuvre.Titre).all()
+
+
     if request.method=="POST":
         #Saint
         nomSaint=request.form.get("Saint", None)
@@ -87,7 +93,7 @@ def formulaire():
             flash("Les erreurs suivantes ont été rencontrées : " + ",".join(donnees), "error")
             return render_template("pages/formulaire.html")
 
-    return render_template("pages/formulaire.html", nom="Site")
+    return render_template("pages/formulaire.html", nom="Site",Listenomsaint=listenomsaint, Listetitrereal=listetitrereal)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -169,7 +175,7 @@ def recherche():
             Oeuvre.Langue.like("%{}%".format(motclef)),
             Oeuvre.Incipit.like("%{}%".format(motclef)),
             Oeuvre.Explicit.like("%{}%".format(motclef)),
-            Oeuvre.Langue.like("%{}%".format(motclef)),
+            Oeuvre.Folios.like("%{}%".format(motclef)),
             Oeuvre.realisations.any(Realisation.Lieu_production.like("%{}%".format(motclef))),
             Oeuvre.realisations.any(Realisation.Copiste.like("%{}%".format(motclef))),
             Oeuvre.realisations.any(Realisation.Date_production.like("%{}%".format(motclef))),
@@ -198,3 +204,45 @@ def recherche():
 @app.route('/cgu')
 def cgu():
     return render_template("pages/cgu.html", nom="Site")
+
+@app.route('/formulairemanuscrit')
+def formulaire_manuscrit():
+
+    return render_template('pages/formulaire_manuscrit.html', nom="Site")
+
+@app.route('/formulaire_realisation')
+def formulaire_realisation():
+
+    return render_template('pages/formulaire_realisation.html', nom="Site")
+@app.route('/formulaire_saint')
+def formulaire_saint():
+    listenomsaint = Saint.query.order_by(Saint.Nom_saint).all()
+
+    return render_template('pages/formulaire_saint.html', Listenomsaint=listenomsaint)
+@app.route('/formulaire_institution')
+def formulaire_institution():
+
+    return render_template('pages/formulaire_institution.html', nom="Site")
+
+"""  
+    listetitrereal=Oeuvre.query.order_by(Oeuvre.Titre).all()
+    listeauteur=Oeuvre.query.order_by(Oeuvre.Auteur).all()
+    listelangue=Oeuvre.query.order_by(Oeuvre.Langue).all()
+    listeincipit=Oeuvre.query.order_by(Oeuvre.Incipit).all()
+    listeexplicit=Oeuvre.query.order_by(Oeuvre.Explicit).all()
+    listefolios=Oeuvre.query.order_by(Oeuvre.Folios).all()
+    listeliensite=Oeuvre.query.order_by(Oeuvre.URL).all()
+    listeiiif=Oeuvre.query.order_by(Oeuvre.IIIF).all()
+    listecopiste=Realisation.query.order_by(Realisation.Copiste).all()
+    listedateprod=Realisation.query.order_by(Realisation.Date_production).all()
+    listelieuprod=Realisation.query.order_by(Realisation.Lieu_production).all()
+    listecote=Manuscrit.query.order_by(Manuscrit.Cote).all()
+    listetitre_manuscrit=Manuscrit.query.order_by(Manuscrit.Titre).all()
+    listenbfeuillet=Manuscrit.query.order_by(Manuscrit.Nb_feuillets).all()
+    listeprovenance=Manuscrit.query.order_by(Manuscrit.Provenance).all()
+    listesupport=Manuscrit.query.order_by(Manuscrit.Support).all()
+    listehauteur=Manuscrit.query.order_by(Manuscrit.Hauteur).all()
+    listelargeur=Manuscrit.query.order_by(Manuscrit.Largeur).all()
+    listeinstitution=Institution.query.order_by(Institution.Nom_institution).all()
+    listelocalisation=Localisation.query.order_by(Localisation.Ville).all()
+"""
