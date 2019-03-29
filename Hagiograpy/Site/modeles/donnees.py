@@ -70,7 +70,7 @@ class Saint(db.Model):
         """ Ajout du saint dans la base de données
 
         :param nom_saint: nom du saint et de la sainte
-        :return: Récupère l'id du saint rajouter ou déjà présent dans la base
+        :return: Récupère l'id du saint rajouté ou déjà présent dans la base
         """
         all_Nom_saint=Saint.query.with_entities(Saint.Nom_saint)
         all_Nom_saint=[nsaint[0]for nsaint in all_Nom_saint.all()]
@@ -198,7 +198,7 @@ class Realisation (db.Model):
         """
         Fonction qui doit permettre de faire la jointure entre les deux tables
         :param oeuvreid: id de l'oeuvre
-        :param realisationid: id de la realisaiton
+        :param realisationid: id de la réalisation
 
         """
         realisationassoc=Realisation.query.filter(Realisation.IdRealisation==realisationid).first()
