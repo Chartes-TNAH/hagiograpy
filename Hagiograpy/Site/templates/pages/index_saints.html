@@ -1,0 +1,20 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+
+<h1>Saints</h1>
+
+    {% if saint %}
+    <p>Pour lors, la base recense {{saint|length}} noms de Saints :</p>
+        <ul>
+            {% for saints in saint %}
+            <li><a href="{{url_for('saint', st_id=saint.IdSaint)}}">{{saint.Nom_Saint}}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+    <p><a href="{{url_for('accueil')}}">Retour à la page d'accueil</a></p>
+
+{% endblock %}
+
