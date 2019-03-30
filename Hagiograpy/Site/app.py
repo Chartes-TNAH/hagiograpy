@@ -19,6 +19,9 @@ app = Flask(
     static_folder=statics
 )
 
+#Ligne de code pour migrer sqlite vers postgresql
+migrate = Migrate(app, db)
+
 # On configure le secret
 app.config['SECRET_KEY'] = SECRET_KEY
 # On configure la base de données
@@ -31,9 +34,6 @@ db = SQLAlchemy(app)
 login = LoginManager(app)
 
 from .routes import accueil, oeuvre, inscription, connexion, deconnexion, formulaire, cgu, saint
-
-#Ligne de code pour migrer sqlite vers postgresql
-migrate = Migrate(app, db)
 
 if __name__ == "__main__":
     app.run(debug=True)
