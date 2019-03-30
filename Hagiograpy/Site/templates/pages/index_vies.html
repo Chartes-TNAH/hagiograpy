@@ -1,0 +1,20 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+
+<h1>Vies de Saints</h1>
+
+    {% if oeuvres %}
+    <p>Pour lors, la base recense {{oeuvres|length}} vies de Saints :</p>
+        <ul>
+            {% for oeuvre in oeuvres %}
+            <li><a href="{{url_for('oeuvre', vie_id=oeuvre.IdOeuvre)}}">{{oeuvre.Titre}}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+    <p><a href="{{url_for('accueil')}}">Retour à la page d'accueil</a></p>
+
+{% endblock %}
+
