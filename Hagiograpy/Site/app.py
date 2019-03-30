@@ -19,6 +19,9 @@ app = Flask(
     static_folder=statics
 )
 
+# On initie l'extension
+db = SQLAlchemy(app)
+
 #Ligne de code pour migrer sqlite vers postgresql
 migrate = Migrate(app, db)
 
@@ -26,9 +29,6 @@ migrate = Migrate(app, db)
 app.config['SECRET_KEY'] = SECRET_KEY
 # On configure la base de données
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./db_HagiograPY'
-
-# On initie l'extension
-db = SQLAlchemy(app)
 
 # On met en place la gestion d'utilisateur-rice-s
 login = LoginManager(app)
