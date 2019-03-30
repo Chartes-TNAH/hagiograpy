@@ -24,17 +24,17 @@ def index_vies():
 @app.route("/index_saints")
 def index_saints():
     saints = Saint.query.all()
-    return render_template("pages/index_saints.html", nom="Site", saints=saint)
+    return render_template("pages/index_saints.html", nom="Site", saints=saints)
 
 @app.route("/index_mss")
 def index_mss():
-    mss = Manuscrit.query.all()
-    return render_template("pages/index_mss.html", nom="Site", mss=manuscrit)
+    manuscrits = Manuscrit.query.all()
+    return render_template("pages/index_mss.html", nom="Site", manuscrits=manuscrits)
 
 @app.route("/index_bib")
 def index_bib():
-    bib = Institution.query.all()
-    return render_template("pages/index_bib.html", nom="Site", bib=institution)
+    bibliotheques = Institution.query.all()
+    return render_template("pages/index_bib.html", nom="Site", bibliotheques=bibliotheques)
 
 #Routes des pages de contenu
 
