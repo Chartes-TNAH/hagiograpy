@@ -9,7 +9,7 @@
     {% if oeuvre %}
         <h1>{{oeuvre.Titre}}</h1>
         <dl>
-            <dt>Saint</dt><dd><a href="{{url_for('saint', st_id=saint.IdSaint)}}">{{saint.Nom_saint}}</a></dd>
+            <dt>Saint</dt><dd>{{saint.Nom_saint}}</dd>
             <dt>Titre</dt><dd>{{oeuvre.Titre}}</dd>
             <dt>Auteur</dt><dd>{{oeuvre.Auteur}}</dd>
             <dt>Langue</dt><dd>{{oeuvre.Langue}}</dd>
@@ -25,7 +25,7 @@
             <dt>Date de production</dt><dd>{{realisation.Date_production}}</dd>
             <dt>Lieu de production</dt><dd>{{realisation.Lieu_production}}</dd>
             <dt>Titre du manuscrit</dt><dd>{{conservation.Titre}}</dd>
-            <dt>Cote du manuscrit</dt><dd><a href="{{}}">{{conservation.Cote}}</a></dd>
+            <dt>Cote du manuscrit</dt><dd>{{conservation.Cote}}</dd>
             <dt>Nombre de feuillets</dt><dd>{{conservation.Nb_feuillets}}</dd>
             <dt>Provenance</dt><dd>{{conservation.Provenance}}</dd>
             <dt>Support</dt><dd>{{conservation.Support}}</dd>
