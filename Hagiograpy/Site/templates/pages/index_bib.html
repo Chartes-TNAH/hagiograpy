@@ -4,10 +4,10 @@
 
 <h1>Institutions de conservation</h1>
 
-    {% if institution %}
-    <p>Pour lors, la base recense {{institution|length}} institutions de conservation :</p>
+    {% if bibliotheques %}
+    <p>Pour lors, la base recense {{bibliotheques|length}} institutions de conservation :</p>
         <ul>
-            {% for bib in institution %}
+            {% for institution in bibliotheques %}
             <li><a href="{{url_for('institution', bib_id=institution.IdInstitution)}}">{{institution.Nom_institution}}</a></li>
             {% endfor %}
         </ul>
@@ -17,4 +17,3 @@
     <p><a href="{{url_for('accueil')}}">Retour à la page d'accueil</a></p>
 
 {% endblock %}
-
