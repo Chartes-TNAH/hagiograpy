@@ -8,17 +8,41 @@ from flask_login import login_user, current_user, logout_user
 from flask import flash, redirect, request
 from .modeles.donnees import Oeuvre, Saint, controle, Jointure_Saint_Oeuvre, Realisation, Jointure_Oeuvre_Realisation, Manuscrit, Jointure_Manuscrit_Realisation, Institution, Localisation
 
+#Route de la page d'accueil
 
 @app.route("/")
 def accueil():
+    return render_template("pages/accueil.html", nom="Site")
+
+#Routes pour les pages d'index
+
+@app.route("/index_vies")
+def index_vies():
     oeuvres = Oeuvre.query.all()
-    return render_template("pages/accueil.html", nom="Site", oeuvres=oeuvres)
+    return render_template("pages/index_vies.html", nom="Site", oeuvres=oeuvres)
+
+@app.route("/index_saints")
+def index_saints():
+    saints = Saint.query.all()
+    return render_template("pages/index_saints.html", nom="Site", saints=saints)
+
+@app.route("/index_mss")
+def index_mss():
+    manuscrits = Manuscrit.query.all()
+    return render_template("pages/index_mss.html", nom="Site", manuscrits=manuscrits)
+
+@app.route("/index_bib")
+def index_bib():
+    bibliotheques = Institution.query.all()
+    return render_template("pages/index_bib.html", nom="Site", bibliotheques=bibliotheques)
+
+#Routes des pages de contenu
 
 @app.route("/oeuvre/<int:vie_id>")
 def oeuvre(vie_id):
 
     """Création d'une page pour une vie de Saint
-    :param vie_id: Id de la vie clé primaire de la table oeuvre dans la base de données
+    :param vie_id: Id de la clé primaire de la table Oeuvre dans la base de données
     :type vie_id: texte
     :returns: création de page
     :rtype: page HTML de la vie souhaitée"""
@@ -33,6 +57,45 @@ def oeuvre(vie_id):
     localisation_oeuv = Localisation.query.filter(Localisation.InstitutionLocalisation.any(Realisation.oeuvres.any(Oeuvre.IdOeuvre == vie_id))).first()
     lieu_oeuv = Institution.query.filter(Localisation.InstitutionLocalisation.any(Oeuvre.IdOeuvre == vie_id)).first()
     return render_template("pages/vie.html", nom="Site", oeuvre=unique_vie, realisation=realisation_oeuv, conservation=manuscrit_oeuv, localisation=localisation_oeuv, institution=lieu_oeuv, saint=saint_vie1)
+
+@app.route("/manuscrit/<int:mss_id>")
+def manuscrit(mss_id):
+
+    """Création d'une page pour un manuscrit dépouillé
+    :param mss_id: Id de la clé primaire de la table Manuscrit dans la base de données
+    :type mss_id: texte
+    :returns: création de page
+    :rtype: page HTML du manuscrit souhaité"""
+
+    unique_mss=Manuscrit.query.filter(Manuscrit.IdManuscrit==mss_id).first()
+    return render_template("pages/manuscrit.html", nom="Site", manuscrit=unique_mss)
+
+@app.route("/institution/<int:bib_id>")
+def institution(bib_id):
+
+    """Création d'une page pour une institution conservatrice
+    :param bib_id: Id de la clé primaire de la table Institution dans la base de données
+    :type bib_id: texte
+    :returns: création de page
+    :rtype: page HTML de l'institution souhaitée"""
+
+    unique_bib=Institution.query.filter(Institution.IdInstitution==bib_id).first()
+    return render_template("pages/institution.html", nom="Site", institution=unique_bib)
+
+@app.route("/saint/<int:st_id>")
+def saint(st_id):
+
+    """Création d'une page pour une biographie de Saint
+    :param st_id: Id de la clé primaire de la table Saint dans la base de données
+    :type st_id: texte
+    :returns: création de page
+    :rtype: page HTML de la biographie souhaitée"""
+
+    unique_bio=Saint.query.filter(Saint.IdSaint==st_id).first()
+    st_biogr = Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre == st_id)).first()
+    return render_template("pages/saint.html", nom="Site", oeuvre=unique_bio, saint=st_biogr)
+
+#Routes des pages dynamiques (get, post)
 
 @app.route("/formulaire", methods=["GET", "POST"])
 def formulaire():
@@ -146,11 +209,6 @@ def deconnexion():
     return redirect("/")
   
 
-@app.route('/about')
-def about():
-    return render_template("pages/a-propos.html", nom="Site")
-  
-
 @app.route("/recherche")
 def recherche():
 
@@ -198,6 +256,12 @@ def recherche():
         titre=titre,
         keyword=motclef
     )
+
+#Routes des pages annexes
+
+@app.route('/about')
+def about():
+    return render_template("pages/a-propos.html", nom="Site")
 
 @app.route('/cgu')
 def cgu():

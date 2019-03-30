@@ -30,7 +30,6 @@ class Oeuvre(db.Model):
     @staticmethod
     def ajouter(titre, auteur, langue, incipit, excipit,folios, lien_site,iiif):
         """
-
         :param titre: Titre de l'oeuvre ajouter dans formulaire.html
         :param auteur: Auteur de l'oeuvre ajouter dans formulaire.html
         :param langue: Langue de l'oeuvre ajouter dans formulaire.html
@@ -68,7 +67,6 @@ class Saint(db.Model):
     @staticmethod
     def ajouter(nom_saint):
         """ Ajout du saint dans la base de données
-
         :param nom_saint: nom du saint et de la sainte
         :return: Récupère l'id du saint rajouté ou déjà présent dans la base
         """
@@ -124,8 +122,6 @@ class Institution(db.Model):
             return recup.IdInstitution
 
 
-
-
 class Manuscrit(db.Model):
     __tablename__="manuscrit"
     IdManuscrit=db.Column(db.Integer, unique=True, primary_key=True, autoincrement=True)
@@ -164,8 +160,6 @@ class Manuscrit(db.Model):
         manuscritassoc.manuscrits.append(realisationassoc)
         db.session.add(manuscritassoc)
         db.session.commit()
-
-
 
 
 class Realisation (db.Model):
