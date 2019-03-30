@@ -25,7 +25,7 @@
             <dt>Date de production</dt><dd>{{realisation.Date_production}}</dd>
             <dt>Lieu de production</dt><dd>{{realisation.Lieu_production}}</dd>
             <dt>Titre du manuscrit</dt><dd>{{conservation.Titre}}</dd>
-            <dt>Cote du manuscrit</dt><dd>{{conservation.Cote}}</dd>
+            <dt>Cote du manuscrit</dt><dd><a href="{{url_for('manuscrit', mss_id=conservation.IdManuscrit)}}">{{conservation.Cote}}</a></dd>
             <dt>Nombre de feuillets</dt><dd>{{conservation.Nb_feuillets}}</dd>
             <dt>Provenance</dt><dd>{{conservation.Provenance}}</dd>
             <dt>Support</dt><dd>{{conservation.Support}}</dd>
