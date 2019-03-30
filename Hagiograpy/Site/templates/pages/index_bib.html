@@ -1,0 +1,20 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+
+<h1>Institutions de conservation</h1>
+
+    {% if institution %}
+    <p>Pour lors, la base recense {{institution|length}} institutions de conservation :</p>
+        <ul>
+            {% for bib in institution %}
+            <li><a href="{{url_for('institution', bib_id=institution.IdInstitution)}}">{{institution.Nom_institution}}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+    <p><a href="{{url_for('accueil')}}">Retour à la page d'accueil</a></p>
+
+{% endblock %}
+
