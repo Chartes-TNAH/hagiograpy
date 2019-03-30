@@ -1,7 +1,7 @@
 from flask import render_template, request, flash, redirect
 
 from .app import app
-from sqlalchemy import or_
+from sqlalchemy import or_ ,and_
 from .modeles.utilisateurs import User
 from .constantes import RESULTS_PER_PAGE
 from flask_login import login_user, current_user, logout_user
@@ -266,3 +266,105 @@ def about():
 @app.route('/cgu')
 def cgu():
     return render_template("pages/cgu.html", nom="Site")
+
+@app.route('/rechercheavancee', methods=["POST", "GET"])
+def rechercheavancee ():
+    page = request.args.get("page", 1)
+
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
+
+
+    if request.method == "POST":
+
+        resultats = []
+
+        titre = "Recherche"
+
+        keyword="test"
+        question=Oeuvre.query
+
+        #Saint
+        nomSaint=request.form.get("Saint", None)
+        #Oeuvre
+        titreReal=request.form.get("Titre", None)
+        auteur=request.form.get("Auteur",None)
+        langue=request.form.get("Langue", None)
+        incipit=request.form.get("Incipit", None)
+        explicit=request.form.get("Explicit",None)
+        folios=request.form.get("Folios",None)
+        liensite=request.form.get("Lien_site", None)
+        iiif=request.form.get("IIIF",None)
+        #Realisation
+        copiste=request.form.get("Copiste", None)
+        dateprod=request.form.get("Date_production", None)
+        lieuprod=request.form.get("Lieu_production",None)
+        #Manuscrit
+        cote=request.form.get("Cote",None)
+        titre_manuscrit=request.form.get("Titre_Manuscrit", None)
+        nbfeuillet=request.form.get("Nb_feuillets",None)
+        provenance=request.form.get("Provenance", None)
+        support=request.form.get("Support",None)
+        hauteur=request.form.get("Hauteur",None)
+        largeur=request.form.get("Largeur",None)
+        institution=request.form.get("Institution",None)
+        localisation=request.form.get("Localisation",None)
+
+        if nomSaint:
+            question=question.filter(Oeuvre.saint.any(Saint.Nom_saint.like("%{}%".format(nomSaint))))
+            flash(resultats, "success")
+        if titreReal:
+            question=question.filter(Oeuvre.Titre.like("%{}%".format(titreReal)))
+        if auteur:
+            question=question.filter(Oeuvre.Auteur.like("%{}%".format(auteur)))
+        if langue:
+            question=question.filter(Oeuvre.Langue.like("%{}%".format(langue)))
+        if incipit:
+            question=question.filter( Oeuvre.Incipit.like("%{}%".format(incipit)))
+        if explicit:
+            question=question.filter(Oeuvre.Explicit.like("%{}%".format(explicit)))
+        if folios:
+            question=question.filter(Oeuvre.Folios.like("%{}%".format(folios)))
+        if liensite:
+            question=question.filter(Oeuvre.URL.like("%{}%".format(liensite)))
+        if iiif:
+            question=question.filter(Oeuvre.IIIF.like("%{}%".format(iiif)))
+        if copiste:
+            question=question.filter(Oeuvre.realisations.any(Realisation.Copiste.like("%{}%".format(copiste))))
+        if dateprod:
+            question=question.filter(Oeuvre.realisations.any(Realisation.Date_production.like("%{}%".format(dateprod))))
+        if lieuprod:
+            question = question.filter(Oeuvre.realisations.any(Realisation.Lieu_production.like("%{}%".format(lieuprod))))
+        if cote:
+            question = question.filter(Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.Cote.like("%{}%".format(cote)))))
+        if titre_manuscrit:
+            question = question.filter(Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.Titre.like("%{}%".format(titre_manuscrit)))))
+        if nbfeuillet:
+            question = question.filter(Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.Nb_feuillets.like("%{}%".format(nbfeuillet)))))
+        if provenance:
+            question = question.filter(Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.Provenance.like("%{}%".format(provenance)))))
+        if support:
+            question = question.filter(Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.Support.like("%{}%".format(support)))))
+        if hauteur:
+            question = question.filter(Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.Hauteur.like("%{}%".format(hauteur)))))
+        if largeur:
+            question = question.filter(Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.Largeur.like("%{}%".format(largeur)))))
+        if institution:
+            question = question.filter(Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.InstitutionManuscrit.has(Institution.Nom_institution.like("%{}%".format(institution))))))
+        if localisation:
+            question = question.filter(Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.InstitutionManuscrit.has(Institution.LocalisationInstitution.has(Localisation.Ville.like("%{}%".format(localisation)))))))
+        question=question.paginate(page=page)
+
+
+        return render_template(
+            "pages/recherche.html",
+            resultats=question,
+            titre=titre,
+            keyword=keyword
+        )
+
+
+    return render_template("pages/rechercheavancee.html",nom="Site")

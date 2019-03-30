@@ -1,0 +1,148 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}| Recherche avancée{%endblock%}
+
+{% block corps %}
+
+<h1>Recherche avancée</h1>
+
+<form class="form" method="POST" action="{{url_for('rechercheavancee')}}">
+    <div class="panel panel-info">
+        <div class="form-group row">
+            <label for="register-Nom_saint" class="col-sm-2 col-form-label">Nom du Saint :</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="register-Nom_saint" name="Saint" placeholder="Nom du Saint">
+            </div>
+        </div>
+        <div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <h4>Oeuvre</h4>
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Titre :</strong>
+                    <input type="text" name="Titre" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Auteur :</strong>
+                    <input type="text" name="Auteur" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Langue:</strong>
+                    <input type="text" name="Langue" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Incipit :</strong>
+                    <input type="text" name="Incipit" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Explicit :</strong>
+                    <input type="text" name="Explicit" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Folios :</strong>
+                    <input type="text" name="Folios" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>URL Site :</strong>
+                    <input type="text" name="Lien_site" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Lien IIIF :</strong>
+                    <input type="text" name="IIIF" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Date de production :</strong>
+                    <input type="text" name="Date_production" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Lieu de production :</strong>
+                    <input type="text" name="Lieu_production" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Copiste:</strong>
+                    <input type="text" name="Copiste" class="form-control" value="" />
+                </div>
+            </div>
+        </div>
+        <div>
+
+            <div class="col-md-12">
+                <h4>Manuscrit</h4>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Cote :</strong>
+                    <input type="text" name="Cote" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Titre :</strong>
+                    <input type="text" name="Titre_Manuscrit" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Nombre de feuillets :</strong>
+                    <input type="text" name="Nb_feuillets" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Provenance :</strong>
+                    <input type="text" name="Provenance" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Support :</strong>
+                    <input type="text" name="Support" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Hauteur :</strong>
+                    <input type="text" name="Hauteur" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Largeur :</strong>
+                    <input type="text" name="Largeur" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Institution :</strong>
+                    <input type="text" name="Institution" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Localisation :</strong>
+                    <input type="text" name="Localisation" class="form-control" value="" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">Recherche avancée</button>
+    </div>
+</form>
+{% endblock %}
