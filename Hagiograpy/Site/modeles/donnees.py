@@ -28,7 +28,7 @@ class Oeuvre(db.Model):
     realisations= db.relationship('Realisation', secondary=Jointure_Oeuvre_Realisation, backref='oeuvre')
 
     @staticmethod
-    def ajouter(titre, auteur, langue, incipit, excipit,folios, lien_site,iiif):
+    def ajouter(titre, auteur, langue, incipit, excipit, folios, lien_site,iiif):
         """
         :param titre: Titre de l'oeuvre ajouter dans formulaire.html
         :param auteur: Auteur de l'oeuvre ajouter dans formulaire.html
