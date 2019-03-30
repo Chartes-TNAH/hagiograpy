@@ -161,7 +161,7 @@ class Manuscrit(db.Model):
         realisationassoc=Realisation.query.filter(Realisation.IdRealisation==realisationid).first()
         manuscritassoc=Manuscrit.query.filter(Manuscrit.IdManuscrit==manuscritid).first()
 
-        manuscritassoc.manuscrits.append(realisationassoc)
+        manuscritassoc.realisations.append(realisationassoc)
         db.session.add(manuscritassoc)
         db.session.commit()
 

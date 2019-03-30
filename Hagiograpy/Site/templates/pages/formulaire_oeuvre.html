@@ -1,0 +1,86 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}| Formulaire Oeuvre{%endblock%}
+
+{% block corps %}
+        <div class="col-md-12 text-center">
+    <a href="{{url_for('formulaire')}}"name="singlebutton" class="btn btn-primary" type="button">Formulaire d'ajout général</a>
+    </div>
+    <nav class=" navbar navbar-light bg-light">
+    <form class="form-inline">
+        <a href="{{url_for('formulaire_saint')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Saint</a>
+        <a href="{{url_for('formulaire_oeuvre')}}"  class="btn btn-outline-success" type="button">Formulaire Oeuvre</a>
+        <a href="{{url_for('formulaire_manuscrit')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Manuscrit</a>
+        <a href="{{url_for('formulaire_realisation')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Realisation</a>
+        <a href="{{url_for('formulaire_institution')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Institution</a>
+    </form>
+
+    </nav>
+
+<h1>Formulaire Manuscrit</h1>
+<form class="form dropdown " method="POST" action="{{url_for('formulaire_oeuvre')}}">
+    <div class="panel panel-info">
+
+
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <h4>Oeuvre</h4>
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Titre* :</strong>
+                    <input type="text" name="Titre" list="ListeTitreReal" class="form-control" value="" />
+                    <datalist id="ListeTitreReal">
+                        {% for TitreReal in Listetitrereal %}
+                        <option value="{{ TitreReal.Titre }}">
+                        {% endfor %}
+                    </datalist>
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Auteur :</strong>
+                    <input type="text" name="Auteur" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Langue* :</strong>
+                    <input type="text" name="Langue" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Incipit* :</strong>
+                    <input type="text" name="Incipit" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Explicit* :</strong>
+                    <input type="text" name="Explicit" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Folios* :</strong>
+                    <input type="text" name="Folios" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>URL Site* :</strong>
+                    <input type="text" name="Lien_site" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Lien IIIF* :</strong>
+                    <input type="text" name="IIIF" class="form-control" value="" />
+                </div>
+            </div>
+
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </div>
+</form>
+
+{% endblock %}

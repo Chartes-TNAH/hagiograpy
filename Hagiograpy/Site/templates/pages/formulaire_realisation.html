@@ -3,10 +3,13 @@
 {% block titre %}| Formulaire Réalisation{%endblock%}
 
 {% block corps %}
+        <div class="col-md-12 text-center">
+    <a href="{{url_for('formulaire')}}"name="singlebutton" class="btn btn-primary" type="button">Formulaire d'ajout général</a>
+    </div>
     <nav class=" navbar navbar-light bg-light">
     <form class="form-inline">
         <a href="{{url_for('formulaire_saint')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Saint</a>
-        <a href="{{url_for('formulaire')}}"  class="btn btn-sm btn-outline-secondary" type="button">Formulaire Oeuvre</a>
+        <a href="{{url_for('formulaire_oeuvre')}}"  class="btn btn-sm btn-outline-secondary" type="button">Formulaire Oeuvre</a>
         <a href="{{url_for('formulaire_manuscrit')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Manuscrit</a>
         <a href="{{url_for('formulaire_realisation')}}" class="btn btn-outline-success" type="button">Formulaire Realisation</a>
         <a href="{{url_for('formulaire_institution')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Institution</a>
@@ -15,7 +18,7 @@
     </nav>
 
 <h1>Formulaire Manuscrit</h1>
-<form class="form dropdown " method="POST" action="{{url_for('formulaire_manuscrit')}}">
+<form class="form dropdown " method="POST" action="{{url_for('formulaire_realisation')}}">
     <div class="panel panel-info">
 
             <div class="col-md-12">
@@ -24,18 +27,33 @@
                         <div class="form-group row flex-v-center">
                 <div class="col-md-6 col-xs-12">
                     <strong>Date de production* :</strong>
-                    <input type="text" name="Date_production" class="form-control" value="" />
+                    <input type="text" name="Date_production" list="ListeDate"  class="form-control" value="" />
+                    <datalist id="ListeDate">
+                {% for date in Listedateprod %}
+                    <option data-value="test" value="{{date.Date_production}}">
+                {% endfor %}
+                </datalist>
                 </div>
                 <div class="span1"></div>
                 <div class="col-md-6 col-xs-12">
                     <strong>Lieu de production* :</strong>
-                    <input type="text" name="Lieu_production" class="form-control" value="" />
+                    <input type="text" name="Lieu_production" list="ListeLieu" class="form-control" value="" />
+                    <datalist id="ListeLieu">
+                {% for date in Listedateprod %}
+                    <option data-value="test" value="{{date.Lieu_production}}">
+                {% endfor %}
+                </datalist>
                 </div>
             </div>
             <div class="form-group row flex-v-center">
                 <div class="col-md-6 col-xs-12">
                     <strong>Copiste:</strong>
-                    <input type="text" name="Copiste" class="form-control" value="" />
+                    <input type="text" name="Copiste" list="ListeCopiste" class="form-control" value="" />
+                    <datalist id="ListeCopiste">
+                {% for copiste in Listecopiste %}
+                    <option data-value="test" value="{{copiste.Copiste}}">
+                {% endfor %}
+                </datalist>
                 </div>
             </div>
 

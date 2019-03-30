@@ -34,9 +34,27 @@ def oeuvre(vie_id):
 
 @app.route("/formulaire", methods=["GET", "POST"])
 def formulaire():
-    listenomsaint=Saint.query.order_by(Saint.Nom_saint).all()
-    listetitrereal = Oeuvre.query.order_by(Oeuvre.Titre).all()
-
+    listenomsaint = Saint.query.with_entities(Saint.Nom_saint).distinct()
+    listecopiste=Realisation.query.with_entities(Realisation.Copiste).distinct()
+    listedateprod=Realisation.query.with_entities(Realisation.Date_production).distinct()
+    listelieuprod=Realisation.query.with_entities(Realisation.Lieu_production).distinct()
+    listecote=Manuscrit.query.with_entities(Manuscrit.Cote).distinct()
+    listetitre_manuscrit=Manuscrit.query.with_entities(Manuscrit.Titre).distinct()
+    listenbfeuillet=Manuscrit.query.with_entities(Manuscrit.Nb_feuillets).distinct()
+    listeprovenance=Manuscrit.query.with_entities(Manuscrit.Provenance).distinct()
+    listesupport=Manuscrit.query.with_entities(Manuscrit.Support).distinct()
+    listehauteur=Manuscrit.query.with_entities(Manuscrit.Hauteur).distinct()
+    listelargeur=Manuscrit.query.with_entities(Manuscrit.Largeur).distinct()
+    listeinstitution=Institution.query.with_entities(Institution.Nom_institution).distinct()
+    listelocalisation=Localisation.query.with_entities(Localisation.Ville).distinct()
+    listetitrereal=Oeuvre.query.with_entities(Oeuvre.Titre).distinct()
+    listeauteur=Oeuvre.query.with_entities(Oeuvre.Auteur).distinct()
+    listelangue=Oeuvre.query.with_entities(Oeuvre.Langue).distinct()
+    listeincipit=Oeuvre.query.with_entities(Oeuvre.Incipit).distinct()
+    listeexplicit=Oeuvre.query.with_entities(Oeuvre.Explicit).distinct()
+    listefolios=Oeuvre.query.with_entities(Oeuvre.Folios).distinct()
+    listeliensite=Oeuvre.query.with_entities(Oeuvre.URL).distinct()
+    listeiiif=Oeuvre.query.with_entities(Oeuvre.IIIF).distinct()
 
     if request.method=="POST":
         #Saint
@@ -91,9 +109,19 @@ def formulaire():
             return render_template("pages/formulaire.html")
         else:
             flash("Les erreurs suivantes ont été rencontrées : " + ",".join(donnees), "error")
-            return render_template("pages/formulaire.html")
+            return render_template("pages/formulaire.html", Listenomsaint=listenomsaint,Listecopiste=listecopiste,Listedateprod=listedateprod,
+                                   Listelieuprod=listelieuprod,Listecote=listecote,Listetitremanuscrit=listetitre_manuscrit,Listenbfeuillet=listenbfeuillet,
+                                   Listeprovenance=listeprovenance,Listesupport=listesupport,Listehauteur=listehauteur, Listelargeur=listelargeur
+                                   , Listeinstitution=listeinstitution, Listelocalisation=listelocalisation, Listetitrereal=listetitrereal,
+                                   Listeauteur=listeauteur,Listelangue=listelangue,Listeincipit=listeincipit,Listeexplicit=listeexplicit,
+                                   Listefolios=listefolios,ListeURL=listeliensite,Listeiiif=listeiiif)
 
-    return render_template("pages/formulaire.html", nom="Site",Listenomsaint=listenomsaint, Listetitrereal=listetitrereal)
+    return render_template("pages/formulaire.html", nom="Site",Listenomsaint=listenomsaint,Listecopiste=listecopiste,Listedateprod=listedateprod,
+                           Listelieuprod=listelieuprod,Listecote=listecote,Listetitremanuscrit=listetitre_manuscrit,Listenbfeuillet=listenbfeuillet,
+                           Listeprovenance=listeprovenance,Listesupport=listesupport,Listehauteur=listehauteur, Listelargeur=listelargeur
+                           , Listeinstitution=listeinstitution, Listelocalisation=listelocalisation, Listetitrereal=listetitrereal,
+                           Listeauteur=listeauteur,Listelangue=listelangue,Listeincipit=listeincipit,Listeexplicit=listeexplicit,
+                                   Listefolios=listefolios,ListeURL=listeliensite,Listeiiif=listeiiif)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -205,24 +233,89 @@ def recherche():
 def cgu():
     return render_template("pages/cgu.html", nom="Site")
 
-@app.route('/formulairemanuscrit')
+@app.route('/formulairemanuscrit', methods=["GET", "POST"])
 def formulaire_manuscrit():
 
-    return render_template('pages/formulaire_manuscrit.html', nom="Site")
+    listemanuscrit=Manuscrit.query.all()
+    listeinstitution=Institution.query.all()
 
-@app.route('/formulaire_realisation')
+    if request.method == "POST":
+        cote=request.form.get("Cote",None)
+        titre_manuscrit=request.form.get("Titre_Manuscrit", None)
+        nbfeuillet=request.form.get("Nb_feuillets",None)
+        provenance=request.form.get("Provenance", None)
+        support=request.form.get("Support",None)
+        hauteur=request.form.get("Hauteur",None)
+        largeur=request.form.get("Largeur",None)
+        institution=request.form.get("Institution",None)
+        recup = Institution.query.filter(Institution.Nom_institution == institution).first()
+
+        Manuscrit.ajouter(cote, titre_manuscrit,
+                                         nbfeuillet,
+                                         provenance, support,
+                                         hauteur, largeur, recup.IdInstitution)
+        flash("Ajout réussi", "success")
+        return render_template('pages/formulaire_manuscrit.html', nom="Site", Listemanuscrit=listemanuscrit,
+                               Listeinstitution=listeinstitution)
+
+    return render_template('pages/formulaire_manuscrit.html', nom="Site",Listemanuscrit=listemanuscrit,Listeinstitution=listeinstitution)
+
+@app.route('/formulaire_realisation', methods=["GET", "POST"])
 def formulaire_realisation():
+    listecopiste=Realisation.query.order_by(Realisation.Copiste).all()
+    listedateprod=Realisation.query.order_by(Realisation.Date_production).all()
+    listelieuprod=Realisation.query.order_by(Realisation.Lieu_production).all()
 
-    return render_template('pages/formulaire_realisation.html', nom="Site")
-@app.route('/formulaire_saint')
+    if request.method=="POST":
+        copiste=request.form.get("Copiste", None)
+        dateprod=request.form.get("Date_production", None)
+        lieuprod=request.form.get("Lieu_production",None)
+        Realisation.ajouter(dateprod,
+                                             lieuprod,
+                                             copiste)
+        flash("Ajout réussi", "success")
+        return render_template('pages/formulaire_realisation.html', nom="Site", Listecopiste=listecopiste,
+                               Listedateprod=listedateprod, Listelieuprod=listelieuprod)
+
+    return render_template('pages/formulaire_realisation.html', nom="Site",Listecopiste=listecopiste,Listedateprod=listedateprod,Listelieuprod=listelieuprod)
+
+@app.route('/formulaire_saint', methods=["GET", "POST"])
 def formulaire_saint():
     listenomsaint = Saint.query.order_by(Saint.Nom_saint).all()
 
-    return render_template('pages/formulaire_saint.html', Listenomsaint=listenomsaint)
-@app.route('/formulaire_institution')
-def formulaire_institution():
+    if request.method=="POST":
+        nomSaint = request.form.get("Saint", None)
+        Saint.ajouter(nomSaint)
 
-    return render_template('pages/formulaire_institution.html', nom="Site")
+        flash("Ajout réussi", "success")
+        return render_template("pages/formulaire_saint.html", Listenomsaint=listenomsaint)
+
+
+
+    return render_template('pages/formulaire_saint.html', Listenomsaint=listenomsaint)
+
+@app.route('/formulaire_institution', methods=["GET", "POST"])
+def formulaire_institution():
+    listeinstitution=Institution.query.all()
+    listelocalisation=Localisation.query.all()
+
+    if request.method=="POST":
+
+        institution=request.form.get("Institution",None)
+        localisation=request.form.get("Localisation",None)
+        id_localisation = Localisation.ajouter(localisation)
+        Institution.ajouter(institution, id_localisation)
+        flash("Ajout réussi", "success")
+        return render_template('pages/formulaire_institution.html', nom="Site", Listeinstitution=listeinstitution,
+                               Listelocalisation=listelocalisation)
+
+
+    return render_template('pages/formulaire_institution.html', nom="Site",Listeinstitution=listeinstitution,Listelocalisation=listelocalisation)
+
+@app.route('/formulaire_oeuvre')
+def formulaire_oeuvre():
+
+    return render_template('pages/formulaire_oeuvre.html', nom="Site")
 
 """  
     listetitrereal=Oeuvre.query.order_by(Oeuvre.Titre).all()

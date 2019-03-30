@@ -3,12 +3,16 @@
 {% block titre %}| Formulaire Manuscrit{%endblock%}
 
 {% block corps %}
+
+        <div class="col-md-12 text-center">
+    <a href="{{url_for('formulaire')}}"name="singlebutton" class="btn btn-primary" type="button">Formulaire d'ajout général</a>
+    </div>
     <nav class=" navbar navbar-light bg-light">
     <form class="form-inline">
         <a href="{{url_for('formulaire_saint')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Saint</a>
-        <a href="{{url_for('formulaire')}}"  class="btn btn-sm btn-outline-secondary" type="button">Formulaire Oeuvre</a>
+        <a href="{{url_for('formulaire_oeuvre')}}"  class="btn btn-sm btn-outline-secondary" type="button">Formulaire Oeuvre</a>
         <a href="{{url_for('formulaire_manuscrit')}}" class="btn btn-outline-success" type="button">Formulaire Manuscrit</a>
-        <a href="{{url_for('formulaire_realisation')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Manuscrit</a>
+        <a href="{{url_for('formulaire_realisation')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Réalisation</a>
         <a href="{{url_for('formulaire_institution')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Institution</a>
     </form>
 
@@ -24,41 +28,85 @@
             <div class="form-group row flex-v-center">
                 <div class="col-md-6 col-xs-12">
                     <strong>Cote* :</strong>
-                    <input type="text" name="Cote" class="form-control" value="" />
+                    <input type="text" name="Cote" list="ListeCote" class="form-control" value="" />
+                    <datalist id="ListeCote">
+                {% for manuscrit in Listemanuscrit %}
+                    <option data-value="test" value="{{manuscrit.Cote}}">
+                {% endfor %}
+                    </datalist>
                 </div>
                 <div class="span1"></div>
                 <div class="col-md-6 col-xs-12">
                     <strong>Titre* :</strong>
-                    <input type="text" name="Titre_Manuscrit" class="form-control" value="" />
+                    <input type="text" name="Titre_Manuscrit" list="ListeTitre"class="form-control" value="" />
+                    <datalist id="ListeTitre">
+                {% for manuscrit in Listemanuscrit %}
+                    <option data-value="test" value="{{manuscrit.Titre}}">
+                {% endfor %}
+                    </datalist>
                 </div>
             </div>
             <div class="form-group row flex-v-center">
                 <div class="col-md-6 col-xs-12">
                     <strong>Nombre de feuillets* :</strong>
-                    <input type="text" name="Nb_feuillets" class="form-control" value="" />
+                    <input type="text" name="Nb_feuillets" list="ListeFeuillets" class="form-control" value="" />
+                    <datalist id="ListeFeuillets">
+                {% for manuscrit in Listemanuscrit %}
+                    <option data-value="test" value="{{manuscrit.Nb_feuillets}}">
+                {% endfor %}
+                    </datalist>
                 </div>
                 <div class="span1"></div>
                 <div class="col-md-6 col-xs-12">
                     <strong>Provenance :</strong>
-                    <input type="text" name="Provenance" class="form-control" value="" />
+                    <input type="text" name="Provenance" list="ListeProvenance" class="form-control" value="" />
+                     <datalist id="ListeProvenance">
+                {% for manuscrit in Listemanuscrit %}
+                    <option data-value="test" value="{{manuscrit.Provenance}}">
+                {% endfor %}
+                     </datalist>
                 </div>
             </div>
             <div class="form-group row flex-v-center">
                 <div class="col-md-6 col-xs-12">
                     <strong>Support* :</strong>
-                    <input type="text" name="Support" class="form-control" value="" />
+                    <input type="text" name="Support" list="ListeSupport" class="form-control" value="" />
+                    <datalist id="ListeSupport">
+                {% for manuscrit in Listemanuscrit %}
+                    <option data-value="test" value="{{manuscrit.Support}}">
+                {% endfor %}
+                    </datalist>
                 </div>
                 <div class="span1"></div>
                 <div class="col-md-6 col-xs-12">
                     <strong>Hauteur* :</strong>
-                    <input type="text" name="Hauteur" class="form-control" value="" />
+                    <input type="text" name="Hauteur" list="ListeHauteur" class="form-control" value="" />
+                     <datalist id="ListeHauteur">
+                {% for manuscrit in Listemanuscrit %}
+                    <option data-value="test" value="{{manuscrit.Hauteur}}">
+                {% endfor %}
+                     </datalist>
                 </div>
             </div>
             <div class="form-group row flex-v-center">
                 <div class="col-md-6 col-xs-12">
                     <strong>Largeur* :</strong>
-                    <input type="text" name="Largeur" class="form-control" value="" />
+                    <input type="text" name="Largeur" list="ListeLargeur" class="form-control" value="" />
+                    <datalist id="ListeLargeur">
+                {% for manuscrit in Listemanuscrit %}
+                    <option data-value="test" value="{{manuscrit.Largeur}}">
+                {% endfor %}
+                    </datalist>
                 </div>
+                <div class="span1"></div>
+            <div class="col-md-6 col-xs-12">
+                <strong> Institution:</strong>
+                <select type="text" class="form-control" name="Institution" id="Listeinstitution" >
+                {% for institution in Listeinstitution %}
+                    <option  value="{{institution.Nom_institution}}">{{institution.Nom_institution}}</option>
+                {% endfor %}
+                </select>
+            </div>
             </div>
 
     </div>
