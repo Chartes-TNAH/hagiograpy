@@ -1,0 +1,23 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}
+    {%if manuscrit %}| Manuscrit : {{manuscrit.Titre}} {% endif %}
+{% endblock %}
+
+{% block corps %}
+    {% if manuscrit %}
+        <h1>{{manuscrit.Titre}}</h1>
+        <dl>
+            <dt>Cote</dt><dd>{{manuscrit.Cote}}</dd>
+            <dt>Support</dt><dd>{{manuscrit.Support}}</dd>
+            <dt>Nombre de feuillets</dt><dd>{{manuscrit.Nb_feuillets}}</dd>
+            <dt>Dimensions (H x L)</dt><dd>{{manuscrit.Hauteur}} x {{manuscrit.Largeur}} mm</dd>
+            <dt>Provenance</dt><dd>{{manuscrit.Provenance}}</dd>
+        </dl>
+
+{% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+    <p><a href="{{url_for('index_mss')}}">Retour à l'index des manuscrits dépouillés</a></p>
+    <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>
+{% endblock %}
