@@ -1,0 +1,20 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+
+<h1>Manuscrits dépouillés</h1>
+
+    {% if mss %}
+    <p>Pour lors, la base recense {{manuscrit|length}} manuscrits ayant été dépouillés :</p>
+        <ul>
+            {% for mss in manuscrit %}
+            <li><a href="{{url_for('manuscrit', mss_id=manuscrit.IdManuscrit)}}">{{manuscrit.Cote}}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+    <p><a href="{{url_for('accueil')}}">Retour à la page d'accueil</a></p>
+
+{% endblock %}
+
