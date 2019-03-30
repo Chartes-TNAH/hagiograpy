@@ -14,15 +14,15 @@ Les internautes sont invités à enrichir la base en ajoutant des œuvres grâce
     <li>un mot de passe.</li>
 </ul>
 </p>
-    {% if oeuvres %}
-    <p>Pour lors, la base recense {{oeuvres|length}} oeuvres :</p>
-        <ul>
-            {% for oeuvre in oeuvres %}
-            <li><a href="{{url_for('oeuvre', vie_id=oeuvre.IdOeuvre)}}">{{oeuvre.Titre}}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>La base de données est en cours de constitution</p>
-    {% endif %}
+<p>La base de données recense :
+<ul>
+    <li>des <a href="{{url_for('index_vies')}}">vies de saints</a> issues de recueils hagiogaphiques ;</li>
+    <li>une courte <a href="{{url_for('index_saints')}}">biographie</a> des saints considérés ;</li>
+    <li>la liste des <a href="{{url_for('index_mss')}}">manuscrits</a> contenant les hagiographies ;</li>
+    <li>la liste des <a href="{{url_for('index_bib')}}">institutions</a> conservant les manuscrits.</li>
+</ul>
+<br/>
+</p>
+
 {% endblock %}
 
