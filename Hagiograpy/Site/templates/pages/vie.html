@@ -18,7 +18,7 @@
             <dt>URL de la page</dt><dd><a href="{{oeuvre.URL}}.item">{{oeuvre.URL}}.item</a></dd>
             <dt>Manifeste IIIF</dt><dd><a href="{{oeuvre.IIIF}}">{{oeuvre.IIIF}}</a></dd>
         </dl>
-        <h2>Manuscrit</h2>
+        <h2>Contenue dans le manuscrit</h2>
         <dl>
             <dt>Copiste</dt><dd>{{realisation.Copiste}}</dd>
             <dt>Date de production</dt><dd>{{realisation.Date_production}}</dd>
@@ -64,5 +64,6 @@ La taille des images est adaptative - responsive design.
 {% else %}
         <p>La base de données est en cours de constitution</p>
     {% endif %}
+    <p><a href="{{url_for('index_vies')}}">Retour à l'index des Vies de Saints</a></p>
     <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>
 {% endblock %}
