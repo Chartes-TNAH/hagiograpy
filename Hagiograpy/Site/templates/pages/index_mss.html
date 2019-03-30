@@ -4,10 +4,10 @@
 
 <h1>Manuscrits dépouillés</h1>
 
-    {% if mss %}
-    <p>Pour lors, la base recense {{manuscrit|length}} manuscrits ayant été dépouillés :</p>
+    {% if manuscrits %}
+    <p>Pour lors, la base recense {{manuscrits|length}} manuscrits ayant été dépouillés :</p>
         <ul>
-            {% for mss in manuscrit %}
+            {% for manuscrit in manuscrits %}
             <li><a href="{{url_for('manuscrit', mss_id=manuscrit.IdManuscrit)}}">{{manuscrit.Cote}}</a></li>
             {% endfor %}
         </ul>
