@@ -4,6 +4,7 @@ from flask_login import LoginManager
 import os
 import os.path
 from .constantes import SECRET_KEY
+from flask_migrate import Migrate
 
 
 chemin_actuel = os.path.dirname(os.path.abspath(__file__))
@@ -22,6 +23,8 @@ app = Flask(
 # On initie l'extension
 db = SQLAlchemy(app)
 
+# Code de migration de la bdd sqlite
+migrate = Migrate(app, db)
 
 # On configure le secret
 app.config['SECRET_KEY'] = SECRET_KEY
