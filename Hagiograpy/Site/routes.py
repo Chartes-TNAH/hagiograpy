@@ -243,8 +243,6 @@ def deconnexion():
     return redirect("/")
   
 
-  
-
 @app.route("/recherche")
 def recherche():
 
@@ -293,15 +291,6 @@ def recherche():
         keyword=motclef
     )
 
-#Routes des pages annexes
-
-@app.route('/about')
-def about():
-    return render_template("pages/a-propos.html", nom="Site")
-
-@app.route('/cgu')
-def cgu():
-    return render_template("pages/cgu.html", nom="Site")
 
 @app.route('/rechercheavancee', methods=["POST", "GET"])
 def rechercheavancee ():
@@ -311,8 +300,6 @@ def rechercheavancee ():
         page = int(page)
     else:
         page = 1
-
-
 
     if request.method == "POST":
 
@@ -394,7 +381,6 @@ def rechercheavancee ():
             question = question.filter(Oeuvre.realisations.any(Realisation.manuscrits.any(Manuscrit.InstitutionManuscrit.has(Institution.LocalisationInstitution.has(Localisation.Ville.like("%{}%".format(localisation)))))))
         question=question.paginate(page=page)
 
-
         return render_template(
             "pages/recherche.html",
             resultats=question,
@@ -463,7 +449,6 @@ def formulaire_saint():
         return render_template("pages/formulaire_saint.html", Listenomsaint=listenomsaint)
 
 
-
     return render_template('pages/formulaire_saint.html', Listenomsaint=listenomsaint)
 
 @app.route('/formulaire_institution', methods=["GET", "POST"])
@@ -488,3 +473,13 @@ def formulaire_institution():
 def formulaire_oeuvre():
 
     return render_template('pages/formulaire_oeuvre.html', nom="Site")
+
+#Routes des pages annexes
+
+@app.route('/about')
+def about():
+    return render_template("pages/a-propos.html", nom="Site")
+
+@app.route('/cgu')
+def cgu():
+    return render_template("pages/cgu.html", nom="Site")
