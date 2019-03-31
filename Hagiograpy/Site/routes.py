@@ -91,7 +91,6 @@ def saint(st_id):
     :rtype: page HTML de la biographie souhaitée"""
 
     unique_bio=Saint.query.filter(Saint.IdSaint==st_id).first()
-    #st_biogr=Saint.query.filter(Saint.oeuvres.any(Oeuvre.IdOeuvre == st_id)).first()
     return render_template("pages/saint.html", nom="Site", saint=unique_bio)
 
 #Routes des pages dynamiques (get, post)
