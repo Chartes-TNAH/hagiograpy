@@ -22,10 +22,12 @@ Ce repository contient l'ensemble des éléments nécessaires à la création d'
 ## Description du projet
 HagiograPY est une application web permettant de donner accès à de la littérature hagiographique médiévale.
 
-HagiograPY permet ainsi de consulter des Vies de saints par :
-    nom de saint ;
-    titre d'oeuvre ;
-    auteur de l'oeuvre.
+HagiograPY permet ainsi de consulter des Vies de saints grâce à une recherche simple et une recherche avancée.
+Le site donne accès à des index : 
+- des vies de saints issues de recueils hagiogaphiques ;
+- des biographies des saints considérés ;
+- des manuscrits contenant les hagiographies ;
+- des institutions conservant les manuscrits.
 
 ## Comment fonctionne HagiograPy
 Les différentes pages s'appuient sur les langages HTML, CSS, JavaScript et Python 3, ainsi que sur une base de données MySQL.
