@@ -5,10 +5,11 @@
 {% endblock %}
 
 {% block corps %}
+
     {% if oeuvre %}
         <h1>{{oeuvre.Titre}}</h1>
         <dl>
-            <dt>Saint</dt><dd>{{saint.Nom_saint}}</dd>
+            <dt>Saint</dt><dd><a href="{{url_for('saint', st_id=saint.IdSaint)}}">{{saint.Nom_saint}}</a></dd>
             <dt>Titre</dt><dd>{{oeuvre.Titre}}</dd>
             <dt>Auteur</dt><dd>{{oeuvre.Auteur}}</dd>
             <dt>Langue</dt><dd>{{oeuvre.Langue}}</dd>
@@ -24,13 +25,13 @@
             <dt>Date de production</dt><dd>{{realisation.Date_production}}</dd>
             <dt>Lieu de production</dt><dd>{{realisation.Lieu_production}}</dd>
             <dt>Titre du manuscrit</dt><dd>{{conservation.Titre}}</dd>
-            <dt>Cote du manuscrit</dt><dd>{{conservation.Cote}}</dd>
+            <dt>Cote du manuscrit</dt><dd><a href="{{url_for('manuscrit', mss_id=conservation.IdManuscrit)}}">{{conservation.Cote}}</a></dd>
             <dt>Nombre de feuillets</dt><dd>{{conservation.Nb_feuillets}}</dd>
             <dt>Provenance</dt><dd>{{conservation.Provenance}}</dd>
             <dt>Support</dt><dd>{{conservation.Support}}</dd>
             <dt>Dimensions (H x L)</dt><dd>{{conservation.Hauteur}} x {{conservation.Largeur}} mm</dd>
             <dt>Lieu de conservation</dt><dd>{{localisation.Ville}}</dd>
-            <dt>Établissement</dt><dd>{{institution.Nom_institution}}</dd>
+            <dt>Établissement</dt><dd><a href="{{url_for('institution', bib_id=institution.IdInstitution)}}">{{institution.Nom_institution}}</a></dd>
         </dl>
         <h2>Image</h2>
 <!-- La BDD stocke un nom de fichier image (url) sans extension.
@@ -64,6 +65,9 @@ La taille des images est adaptative - responsive design.
 {% else %}
         <p>La base de données est en cours de constitution</p>
     {% endif %}
-    <p><a href="{{url_for('index_vies')}}">Retour à l'index des Vies de Saints</a></p>
-    <p><a href="{{url_for('accueil')}}">Retour à l'accueil</a></p>
+    <ul>
+        <li><a href="{{url_for('index_vies')}}">Retour à l'index des Vies de Saints</a></li>
+        <li><a href="{{url_for('accueil')}}">Retour à l'accueil</a></li>
+        <li><a href="{{url_for('accueil')}}">Retour à la Vie du Saint</a></li>
+    </ul>
 {% endblock %}

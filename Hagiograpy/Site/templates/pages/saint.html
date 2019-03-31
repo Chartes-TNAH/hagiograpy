@@ -9,10 +9,13 @@
         <h1>{{saint.Nom_saint}}</h1>
         <h2>Biographie</h2>
         <p>{{saint.Biographie}}</p>
+        <p>Source : Wikipédia</p>
 
 {% else %}
         <p>La base de données est en cours de constitution</p>
     {% endif %}
-    <p><a href="{{url_for('index_saints')}}">Retour à l'index des Saints recensés</a></p>
-    <p><a href="{{url_for('accueil')}}">Retour à la page d'accueil</a></p>
+    <ul>
+        <li><a href="{{url_for('index_saints')}}">Retour à l'index des Saints recensés</a></li>
+        <li><a href="{{url_for('accueil')}}">Retour à la page d'accueil</a></li>
+    </ul>
 {% endblock %}
