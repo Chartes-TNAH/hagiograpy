@@ -1,4 +1,5 @@
 from warnings import warn
+import os
 
 RESULTS_PER_PAGE = 2
 SECRET_KEY = "abfezi456efz"
