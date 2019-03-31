@@ -13,6 +13,12 @@
             <dt>Nombre de feuillets</dt><dd>{{manuscrit.Nb_feuillets}}</dd>
             <dt>Dimensions (H x L)</dt><dd>{{manuscrit.Hauteur}} x {{manuscrit.Largeur}} mm</dd>
             <dt>Provenance</dt><dd>{{manuscrit.Provenance}}</dd>
+            <dt>Copiste</dt><dd>{{realisation.Copiste}}</dd>
+            <dt>Date de production</dt><dd>{{realisation.Date_production}}</dd>
+            <dt>Lieu de production</dt><dd>{{realisation.Lieu_production}}</dd>
+            <dt>Lieu de conservation</dt><dd>{{localisation.Ville}}</dd>
+            <dt>Établissement</dt><a href="{{url_for('institution', bib_id=institution.IdInstitution)}}">{{institution.Nom_institution}}</a></dd>
+
         </dl>
 
 {% else %}
