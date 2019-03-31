@@ -4,6 +4,7 @@ from flask_login import LoginManager
 import os
 import os.path
 from .constantes import SECRET_KEY
+from .constantes import CONFIG
 
 
 
