@@ -67,7 +67,11 @@ def manuscrit(mss_id):
     :rtype: page HTML du manuscrit souhaité"""
 
     unique_mss=Manuscrit.query.filter(Manuscrit.IdManuscrit==mss_id).first()
-    return render_template("pages/manuscrit.html", nom="Site", manuscrit=unique_mss)
+    realisation_oeuv = Realisation.query.filter(Realisation.oeuvres.any(Oeuvre.IdOeuvre == mss_id)).first()
+    manuscrit_oeuv = Manuscrit.query.filter(Manuscrit.realisations.any(Realisation.oeuvres.any(Oeuvre.IdOeuvre == mss_id))).first()
+    localisation_oeuv = Localisation.query.filter(Localisation.InstitutionLocalisation.any(Institution.ManuscritInstitution.any(Manuscrit.realisations.any(Realisation.oeuvres.any(Oeuvre.IdOeuvre == mss_id))))).first()
+    lieu_oeuv = Institution.query.filter(Institution.ManuscritInstitution.any(Manuscrit.realisations.any(Realisation.oeuvres.any(Oeuvre.IdOeuvre == mss_id)))).first()
+    return render_template("pages/manuscrit.html", nom="Site", manuscrit=unique_mss, realisation=realisation_oeuv, conservation=manuscrit_oeuv, localisation=localisation_oeuv, institution=lieu_oeuv)
 
 @app.route("/institution/<int:bib_id>")
 def institution(bib_id):
