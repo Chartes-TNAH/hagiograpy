@@ -5,3 +5,7 @@ SECRET_KEY = "abfezi456efz"
 
 if SECRET_KEY == "JE SUIS UN SECRET !":
     warn("Le secret par défaut n'a pas été changé, vous devriez le faire", Warning)
+
+CONFIG = {
+        "production": _PRODUCTION
+    }
