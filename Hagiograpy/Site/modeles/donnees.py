@@ -70,10 +70,11 @@ class Saint(db.Model):
         :param nom_saint: nom du saint et de la sainte
         :return: Récupère l'id du saint rajouté ou déjà présent dans la base
         """
-        all_Nom_saint=Saint.query.with_entities(Saint.Nom_saint)
-        all_Nom_saint=[nsaint[0]for nsaint in all_Nom_saint.all()]
 
-        if nom_saint not in all_Nom_saint:
+
+        test= Saint.query.filter(Saint.Nom_saint==nom_saint).scalar()
+
+        if test:
             noms=Saint(Nom_saint=nom_saint)
             db.session.add(noms)
             db.session.commit()
@@ -110,6 +111,12 @@ class Institution(db.Model):
 
     @staticmethod
     def ajouter(nominstitution, localisation):
+        """
+
+        :param nominstitution: renvoie le nom de l'institution
+        :param localisation: Id de la localisation
+        :return: renvoie l'id de l'institution pour faire des ajouts
+        """
         test=Institution.query.filter(Institution.Nom_institution==nominstitution,Institution.Localisation_IdLocalisation==localisation).scalar()
         if test is None:
             ajout_institution=Institution(Nom_institution=nominstitution,Localisation_IdLocalisation=localisation)
@@ -138,8 +145,23 @@ class Manuscrit(db.Model):
 
     @staticmethod
     def ajouter(cote,titre,nb_feuillets,provenance,support,hauteur,largeur,institution_idinstitution):
+        """
+
+        :param cote: Valeur cote d'un formulaire d'ajout
+        :param titre: Valeur titre d'un formulaire d'ajout
+        :param nb_feuillets: Valeur nombre de feuillet d'un formulaire d'ajout
+        :param provenance: Valeur provenance d'un formulaire d'ajout
+        :param support: Valeur provenance d'un formulaire d'ajout
+        :param hauteur: Valeur hauteur d'un formulaire d'ajout
+        :param largeur: Valeur largeur d'un formulaire d'ajout
+        :param institution_idinstitution: l'Id de l'institution d'un formulaire d'ajout
+        :return: return l'id du manuscrit ajouter ou correspondant dans la base
+        """
+
+        #Test si les valeurs permettent de trouver quelques choses dans la base
         test=Manuscrit.query.filter(Manuscrit.Cote==cote).filter(Manuscrit.Titre==titre).filter(Manuscrit.Nb_feuillets==nb_feuillets).filter(Manuscrit.Provenance==provenance).filter(Manuscrit.Support==support).filter(Manuscrit.Hauteur==hauteur).filter(Manuscrit.Largeur==largeur).filter(Manuscrit.Institution_IdInstitution==institution_idinstitution).scalar()
 
+        #Si le test est échoué on ajoute les nouvelles entrées dans la base mais dans les deux cas on renvoie les id pour pouvoir faire les associations entre différentes tables
         if test is None:
             ajout_manuscrit=Manuscrit(Cote=cote,Titre=titre,Nb_feuillets=nb_feuillets,Provenance=provenance,Support=support,Hauteur=hauteur,Largeur=largeur,Institution_IdInstitution=institution_idinstitution)
             db.session.add(ajout_manuscrit)
@@ -154,10 +176,16 @@ class Manuscrit(db.Model):
             return recup.IdManuscrit
     @staticmethod
     def association_manuscrit_realisation(manuscritid,realisationid):
+        """
+
+        :param manuscritid: récupération de l'id manuscrit
+        :param realisationid: récupération de l'id réalisation
+        :return:
+        """
         realisationassoc=Realisation.query.filter(Realisation.IdRealisation==realisationid).first()
         manuscritassoc=Manuscrit.query.filter(Manuscrit.IdManuscrit==manuscritid).first()
-
-        manuscritassoc.manuscrits.append(realisationassoc)
+        #mise en place de l'association pour la rajouter dans la base de données au niveau de la jointure manuscrit réalisation
+        manuscritassoc.realisations.append(realisationassoc)
         db.session.add(manuscritassoc)
         db.session.commit()
 
@@ -173,9 +201,17 @@ class Realisation (db.Model):
 
     @staticmethod
     def ajouter(date_production,lieu_production,copiste):
+        """
 
+        :param date_production: recupère la date des formulaires
+        :param lieu_production: recupère le lieu de production
+        :param copiste: récupère le copiste
+        :return: return l'id de la Realisation ajouter ou correspondant dans la base
+        """
+        # Test si les valeurs permettent de trouver quelques choses dans la base
         test=Realisation.query.filter(Realisation.Date_production==date_production).filter(Realisation.Lieu_production==lieu_production).filter(Realisation.Copiste==copiste).scalar()
 
+        # Si le test est échoué on ajoute les nouvelles entrées dans la base mais dans les deux cas on renvoie les id pour pouvoir faire les associations entre différentes tables
         if test is None:
             ajout_realisation=Realisation(Date_production=date_production,Lieu_production=lieu_production,Copiste=copiste)
             db.session.add(ajout_realisation)
@@ -217,6 +253,11 @@ class Localisation (db.Model):
 
     @staticmethod
     def ajouter(localisation):
+        """
+
+        :param localisation:
+        :return: return l'id du localisation ajouter ou correspondant dans la base
+        """
         test=Localisation.query.filter(Localisation.Ville==localisation).scalar()
         if test is None:
             ajout_localisation=Localisation(Ville=localisation)
@@ -228,62 +269,3 @@ class Localisation (db.Model):
             recup=Localisation.query.filter(Localisation.Ville==localisation).first()
             return recup.IdLocalisation
 
-
-def controle(saint, titre, langue, incipit, explicit, Folio, Date_production, Lieu_production,
-                Cote, Nb_feuillets,  Support, Hauteur, Largeur, Institution,Localisation,IIIF):
-    """
-    Controle la présence des mentions obligatoires pour l'ajout de formulaire
-    :param saint: texte d'entrée de Saint
-    :param titre: texte d'entrée de Titre
-    :param langue: texte d'entrée dans langue
-    :param incipit: Texte d'entrée dans incipit
-    :param explicit: texte d'entrée dans explicit
-    :param Folio: texte d'entrée dans Folio
-    :param Date_production: texte d'entrée dans Date production
-    :param Lieu_production: texte d'entrée dans la page formulaire dans Lieu production
-    :param Cote: texte d'entrée dans la page formulaire dans Cote
-    :param Nb_feuillets: texte d'entrée dans la page formulaire dans Nb_feuillets
-    :param Support: texte d'entrée dans la page formulaire dans Support
-    :param Hauteur: texte d'entrée dans la page formulaire dans Hauteur
-    :param Largeur: texte d'entrée dans la page formulaire dans Largeur
-    :param Institution: texte d'entrée dans la page formulaire dans Institution
-    :param Institution: texte d'entrée dans la page formulaire de Localisation
-    :return: erreurs qui contient les différentes cases vides précisées.
-    """
-    erreurs = []
-    if not saint:
-        erreurs.append("Il manque le nom du Saint ")
-    if not titre:
-        erreurs.append("Il manque le titre de l'oeuvre ")
-    if not langue:
-        erreurs.append("Il manque la langue ")
-    if not incipit:
-        erreurs.append("Il manque l'incipit ")
-    if not explicit:
-        erreurs.append("Il manque l'explicit ")
-    if not Folio:
-        erreurs.append("Il manque les folios ")
-    if not Date_production:
-        erreurs.append("Il manque la date de production ")
-    if not Lieu_production:
-        erreurs.append("Il manque le lieu de production ")
-    if not Cote:
-        erreurs.append("Il manque la cote ")
-    if not Nb_feuillets:
-        erreurs.append("Il manque le nombre de feuillet ")
-    if not Support:
-        erreurs.append("Il manque le support du manuscrit ")
-    if not Hauteur:
-        erreurs.append("Il manque la hauteur du mansucrit ")
-    if not Largeur:
-        erreurs.append("Il manque la largeur du manuscrit")
-    if not Institution:
-        erreurs.append("Il manque l'institution")
-    if not Localisation:
-        erreurs.append("Il manque la localisation")
-    if not IIIF:
-        erreurs.append("Il manque le manifeste IIIF")
-    if len(erreurs) > 0:
-        return False, erreurs
-    if len(erreurs)==0:
-        return True,erreurs

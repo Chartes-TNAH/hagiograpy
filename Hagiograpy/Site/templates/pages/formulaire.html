@@ -4,14 +4,35 @@
 
 {% block corps %}
 
+    <div class="col-md-12 text-center">
+    <a href="{{url_for('formulaire')}}"name="singlebutton" class="btn btn-primary" type="button">Formulaire d'ajout général</a>
+    </div>
+
+    <nav class=" navbar navbar-light bg-light">
+    <form class="form-inline">
+        <a href="{{url_for('formulaire_saint')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Saint</a>
+        <a href="{{url_for('formulaire_oeuvre')}}"  class="btn btn-sm btn-outline-secondary" type="button">Formulaire Oeuvre</a>
+        <a href="{{url_for('formulaire_manuscrit')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Manuscrit</a>
+        <a href="{{url_for('formulaire_realisation')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Realisation</a>
+        <a href="{{url_for('formulaire_institution')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Institution</a>
+    </form>
+
+    </nav>
+
+
+
 <h1>Formulaire</h1>
 <p>Complétez le formulaire et cliquez sur Ajouter.</p>
-<form class="form" method="POST" action="{{url_for('formulaire')}}">
+<form class="form dropdown " method="POST" action="{{url_for('formulaire')}}">
     <div class="panel panel-info">
         <div class="form-group row">
             <label for="register-Nom_saint" class="col-sm-2 col-form-label">Nom du Saint* :</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="register-Nom_saint" name="Saint" placeholder="Nom du Saint">
+                <select type="text" class="form-control" name="Saint" id="Listenomsaint" >
+                {% for nomSaint in Listenomsaint %}
+                    <option  value="{{nomSaint.Nom_saint}}">{{nomSaint.Nom_saint}}</option>
+                {% endfor %}
+                </select>
             </div>
         </div>
         <div>
@@ -21,64 +42,108 @@
                 </div>
             </div>
             <div class="form-group row flex-v-center">
-                <div class="col-md-6 col-xs-12">
+                <div   class="col-md-6 col-xs-12">
                     <strong>Titre* :</strong>
-                    <input type="text" name="Titre" class="form-control" value="" />
+                    <select type="text" name="Titre" list=", Listetitrereal" class="form-control" value="">
+                        {% for oeuvre in Listetitrereal %}
+                            <option value="{{ oeuvre.Titre }}">{{ oeuvre.Titre }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <div class="span1"></div>
                 <div class="col-md-6 col-xs-12">
                     <strong>Auteur :</strong>
-                    <input type="text" name="Auteur" class="form-control" value="" />
+                    <select type="text" name="Auteur" list="Listeauteur" class="form-control" value="" >
+                        {% for oeuvre in Listeauteur %}
+                            <option value="{{ oeuvre.Auteur }}">{{ oeuvre.Auteur }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class="form-group row flex-v-center">
                 <div class="col-md-6 col-xs-12">
                     <strong>Langue* :</strong>
-                    <input type="text" name="Langue" class="form-control" value="" />
+                    <select type="text" name="Langue" list="Listelangue" class="form-control" value="">
+                        {% for oeuvre in Listelangue %}
+                            <option value="{{ oeuvre.Langue }}">{{ oeuvre.Langue }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <div class="span1"></div>
                 <div class="col-md-6 col-xs-12">
                     <strong>Incipit* :</strong>
-                    <input type="text" name="Incipit" class="form-control" value="" />
+                    <select type="text" name="Incipit" list="Listeincipit" class="form-control" value="" >
+                        {% for incipit in Listeincipit %}
+                            <option value="{{ incipit.Incipit }}">{{ incipit.Incipit}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class="form-group row flex-v-center">
                 <div class="col-md-6 col-xs-12">
                     <strong>Explicit* :</strong>
-                    <input type="text" name="Explicit" class="form-control" value="" />
+                    <select type="text" name="Explicit" list="Listeexplicit" class="form-control" value="" >
+                        {% for explicit in Listeexplicit %}
+                            <option value="{{ explicit.Explicit }}">{{ explicit.Explicit}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <div class="span1"></div>
                 <div class="col-md-6 col-xs-12">
                     <strong>Folios* :</strong>
-                    <input type="text" name="Folios" class="form-control" value="" />
+                    <select type="text" name="Folios" list="Listefolios" class="form-control" value="" >
+                        {% for folios in Listefolios %}
+                            <option value="{{ folios.Folios }}">{{ folios.Folios}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class="form-group row flex-v-center">
                 <div class="col-md-6 col-xs-12">
                     <strong>URL Site* :</strong>
-                    <input type="text" name="Lien_site" class="form-control" value="" />
+                    <select type="text" name="Lien_site" list="ListeURL" class="form-control" value="" >
+                        {% for url in ListeURL %}
+                            <option value="{{ url.URL }}">{{ url.URL }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <div class="span1"></div>
                 <div class="col-md-6 col-xs-12">
                     <strong>Lien IIIF* :</strong>
-                    <input type="text" name="IIIF" class="form-control" value="" />
+                    <select type="text" name="IIIF" list="Listeiiif" class="form-control" value="" >
+                        {% for iiif in Listeiiif %}
+                            <option value="{{ iiif.IIIF }}">{{ iiif.IIIF }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class="form-group row flex-v-center">
                 <div class="col-md-6 col-xs-12">
                     <strong>Date de production* :</strong>
-                    <input type="text" name="Date_production" class="form-control" value="" />
+                    <select type="text" name="Date_production" list="Listedateprod" class="form-control" value="" >
+                        {% for dateprod in Listedateprod %}
+                            <option value="{{ dateprod.Date_production }}">{{ dateprod.Date_production }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <div class="span1"></div>
                 <div class="col-md-6 col-xs-12">
                     <strong>Lieu de production* :</strong>
-                    <input type="text" name="Lieu_production" class="form-control" value="" />
+                    <select type="text" name="Lieu_production" list="Listelieuprod" class="form-control" value="">
+                        {% for lieuprod in Listelieuprod %}
+                            <option value="{{ lieuprod.Lieu_production }}">{{ lieuprod.Lieu_production }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class="form-group row flex-v-center">
                 <div class="col-md-6 col-xs-12">
                     <strong>Copiste:</strong>
-                    <input type="text" name="Copiste" class="form-control" value="" />
+                    <select type="text" name="Copiste" list="Listecopiste" class="form-control" value="" >
+                        {% for copiste in Listecopiste %}
+                            <option value="{{ copiste.Copiste}}">{{ copiste.Copiste }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
         </div>
@@ -90,51 +155,87 @@
             <div class="form-group row flex-v-center">
                 <div class="col-md-6 col-xs-12">
                     <strong>Cote* :</strong>
-                    <input type="text" name="Cote" class="form-control" value="" />
+                    <select type="text" name="Cote" list="Listecote" class="form-control" value="" >
+                        {% for cote in Listecote %}
+                            <option value="{{ cote.Cote}}">{{ cote.Cote }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <div class="span1"></div>
                 <div class="col-md-6 col-xs-12">
                     <strong>Titre* :</strong>
-                    <input type="text" name="Titre_Manuscrit" class="form-control" value="" />
+                    <select type="text" name="Titre_Manuscrit" list="Listetitremanuscrit" class="form-control" value="">
+                        {% for titrem in Listetitremanuscrit %}
+                            <option value="{{ titrem.Titre}}">{{ titrem.Titre }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class="form-group row flex-v-center">
                 <div class="col-md-6 col-xs-12">
                     <strong>Nombre de feuillets* :</strong>
-                    <input type="text" name="Nb_feuillets" class="form-control" value="" />
+                    <select type="text" name="Nb_feuillets" list="Listenbfeuillet" class="form-control" value="" >
+                    {% for nbfeuillet in Listenbfeuillet%}
+                            <option value="{{ nbfeuillet.Nb_feuillets}}">{{ nbfeuillet.Nb_feuillets }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <div class="span1"></div>
                 <div class="col-md-6 col-xs-12">
                     <strong>Provenance :</strong>
-                    <input type="text" name="Provenance" class="form-control" value="" />
+                    <select type="text" name="Provenance" list="Listeprovenance" class="form-control" value="" >
+                    {% for provenance in Listeprovenance%}
+                            <option value="{{ provenance.Provenance}}">{{provenance.Provenance}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class="form-group row flex-v-center">
                 <div class="col-md-6 col-xs-12">
                     <strong>Support* :</strong>
-                    <input type="text" name="Support" class="form-control" value="" />
+                    <select type="text" name="Support" list="Listesupport" class="form-control" value="" >
+                        {% for support in Listesupport%}
+                            <option value="{{ support.Support}}">{{ support.Support}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <div class="span1"></div>
                 <div class="col-md-6 col-xs-12">
                     <strong>Hauteur* :</strong>
-                    <input type="text" name="Hauteur" class="form-control" value="" />
+                    <select type="text" name="Hauteur" list="Listehauteur" class="form-control" value="" >
+                        {% for hauteur in Listehauteur%}
+                            <option value="{{ hauteur.Hauteur}}">{{ hauteur.Hauteur}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class="form-group row flex-v-center">
                 <div class="col-md-6 col-xs-12">
                     <strong>Largeur* :</strong>
-                    <input type="text" name="Largeur" class="form-control" value="" />
+                    <select type="text" name="Largeur" list="Listelargeur" class="form-control" value="">
+                        {% for largeur in Listelargeur%}
+                            <option value="{{ largeur.Largeur}}">{{ largeur.Largeur}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <div class="span1"></div>
                 <div class="col-md-6 col-xs-12">
                     <strong>Institution* :</strong>
-                    <input type="text" name="Institution" class="form-control" value="" />
+                    <select type="text" name="Institution" list=", Listeinstitution" class="form-control" value="" >
+                        {% for institution in Listeinstitution%}
+                            <option value="{{ institution.Nom_institution}}">{{ institution.Nom_institution}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class="form-group row flex-v-center">
                 <div class="col-md-6 col-xs-12">
                     <strong>Localisation* :</strong>
-                    <input type="text" name="Localisation" class="form-control" value="" />
+                    <select type="text" name="Localisation" list=", Listelocalisation" class="form-control" value="">
+                        {% for localisation in Listelocalisation%}
+                            <option value="{{ localisation.Ville}}">{{ localisation.Ville}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
 

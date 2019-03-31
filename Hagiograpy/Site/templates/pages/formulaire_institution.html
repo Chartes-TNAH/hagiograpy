@@ -1,0 +1,55 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}| Formulaire Institution{%endblock%}
+
+{% block corps %}
+        <div class="col-md-12 text-center">
+    <a href="{{url_for('formulaire')}}"name="singlebutton" class="btn btn-primary" type="button">Formulaire d'ajout général</a>
+    </div>
+    <nav class=" navbar navbar-light bg-light">
+    <form class="form-inline">
+        <a href="{{url_for('formulaire_saint')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Saint</a>
+        <a href="{{url_for('formulaire_oeuvre')}}"  class="btn btn-sm btn-outline-secondary" type="button">Formulaire Oeuvre</a>
+        <a href="{{url_for('formulaire_manuscrit')}}" class="btn btn-sm btn-outline-secondary type="button">Formulaire Manuscrit</a>
+        <a href="{{url_for('formulaire_realisation')}}" class="btn btn-sm btn-outline-secondary" type="button">Formulaire Réalisation</a>
+        <a href="{{url_for('formulaire_institution')}}" class="btn btn-outline-success" type="button">Formulaire Institution</a>
+    </form>
+
+    </nav>
+
+<h1>Formulaire Institution</h1>
+<form class="form dropdown " method="POST" action="{{url_for('formulaire_institution')}}">
+    <div class="panel panel-info">
+
+            <div class="col-md-12">
+                <h4>Institution</h4>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Institution* :</strong>
+                    <input type="text" name="Institution" list="ListeInstitution" class="form-control" value="" />
+                    <datalist id="ListeInstitution">
+                {% for institution in Listeinstitution %}
+                    <option data-value="test" value="{{institution.Nom_institution}}">
+                {% endfor %}
+                     </datalist>
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Localisation* :</strong>
+                    <input type="text" name="Localisation" list="ListeLocalisation" class="form-control" value="" />
+                    <datalist id="ListeLocalisation">
+                {% for localisation in Listelocalisation %}
+                    <option data-value="test" value="{{localisation.Ville}}">
+                {% endfor %}
+                     </datalist>
+                </div>
+            </div>
+
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </div>
+</form>
+
+{% endblock %}
