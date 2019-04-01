@@ -2,7 +2,7 @@
 
 ## Le projet 
 
-* Description du projet
+### Description du projet
 
 HagiograPY est une application web permettant de donner accès à de la littérature hagiographique médiévale.
 
@@ -23,19 +23,18 @@ Cependant, l'enrichissement de la base nécessite une inscription préalable pou
 - un email ;
 - un mot de passe.
 
-* À propos
+### À propos
 
 Cette application web est développée dans le cadre du Master 2 <em>Technologies numériques appliquées à l'histoire</em> de l'École nationale des chartes.
 
-* Comment fonctionne HagiograPy ?
+### Comment fonctionne HagiograPy ?
 
 Les différentes pages s'appuient sur les langages HTML, CSS, JavaScript et Python 3, ainsi que sur une base de données MySQL.
-
-* Comment installer HagiograPy ?
+### Comment installer HagiograPy ?
 
 Télécharger le dossier GitHub. Nous recommandons la création d'un environnement virtuel d'après le fichier requirements.txt. Ouvrir le premier dossier "hagiograpy" et lancer le fichier run.py.
 
-* Contributeurs
+### Contributeurs
 
 - Clément Andrieux
 - Corentin Faye
