@@ -7,7 +7,6 @@ from .constantes import SECRET_KEY
 from .constantes import CONFIG
 from flask_migrate import Migrate
 
-
 chemin_actuel = os.path.dirname(os.path.abspath(__file__))
 # on stocke le chemin du fichier courant
 templates = os.path.join(chemin_actuel, "templates")
@@ -25,7 +24,6 @@ app = Flask(
 db = SQLAlchemy(app)
 
 migrate = Migrate(app, db)
-
 
 # On configure le secret
 app.config['SECRET_KEY'] = SECRET_KEY
