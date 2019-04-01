@@ -5,7 +5,6 @@ import os
 import os.path
 from .constantes import SECRET_KEY
 
-
 chemin_actuel = os.path.dirname(os.path.abspath(__file__))
 # on stocke le chemin du fichier courant
 templates = os.path.join(chemin_actuel, "templates")
@@ -22,7 +21,6 @@ app = Flask(
 # On initie l'extension
 db = SQLAlchemy(app)
 
-
 # On configure le secret
 app.config['SECRET_KEY'] = SECRET_KEY
 # On configure la base de données
@@ -33,5 +31,12 @@ login = LoginManager(app)
 
 from .routes import accueil, oeuvre, inscription, connexion, deconnexion, formulaire, cgu, saint, about, formulaire_institution, formulaire_manuscrit, formulaire_oeuvre, formulaire_realisation, formulaire_saint, rechercheavancee, recherche
 
-if __name__ == "__main__":
-    app.run(debug=True)
+def config_app(config_name="production"):
+    """ Creation de l'application """
+    app.config.from_object(CONFIG[config_name])
+
+    # Set up extensions
+    db.init_app(app)
+    login.init_app(app)
+
+    return app
