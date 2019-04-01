@@ -1,5 +1,4 @@
-from Site.app import config_app
+from Hagiograpy.Site.app import app
 
 if __name__ == "__main__":
-    app = config_app("production")
     app.run(debug=True)
