@@ -46,6 +46,7 @@ Télécharger le dossier GitHub. Nous recommandons la création d'un environneme
 ### La base de donnée
 
 Cette application web s'adosse à une base de donnée pour laquelle il a été nécessaire de concevoir un modèle conceptuel de données avec le logiciel MySQL Workbench avant de réaliser un modèle relationnel de données. La base de données a ensuite été créée en SQlite avec le logiciel DB Browser.
+
 Afin de donner à voir le fonctionnement du site, il convenait de peupler la base par des données réelles issues des travaux menées dans le cadres des enseignements du langage XML-TEI et notamment l'encodage de la Cantilène de Sainte Eulalie et du manuscrit Français-412 de la Bibliothèque nationale de France.
 
 ### L'application web
@@ -65,6 +66,7 @@ Sachant qu'un visualiseur IIIF était demandé pour exploiter des fichiers JSON,
 * Les formulaires de recherche
 
 La mise en place des formulaires de recherche (simple et avancée) a nécessité une importante réflexion pour l'alimentation du fichier donnees.py et plus encore pour le fichier des routes.py.
+
 L'objectif était d'exploiter toutes les tables, tous les champs et toutes les jointures de la base de données par le biais du langage de requête offert par SQLAlchemy.
 
 ### Modalités du développement
@@ -81,8 +83,11 @@ Pour la livrasion finale du projet, un fichier `.gitignore` a été produit grâ
 * Déploiement sur Heroku
 
 Afin de publier le site en ligne et ne pas rester sur un serveur local (localhost), plusieurs tentatives ont été menées pour transférer le site sur la plateforme Heroku. Malheureusement, il appert que la plateforme, même si elle peut stocker des branches d'un dépôt GIT, nécessite une branche "maître". Cela a impliqué de devoir configurer le site directement sur les données de la branche "master" de notre dépôt. 
+
 Malgré la mise en place de tous les pré-requis fournis pas la documentation de la plateforme (création des fichiers Procfile, runtime, mise à jour du fichier requirements, etc.), il n'a pas été possible de mener à bien cette tâche. 
+
 Grâce à la commande `heroku logs --tail` saisie dans le terminal de nombreuses erreurs ont été patiemment corrigées l'une après l'autre, comme par exemple celle concernant une version trop avancée de python et non prise en charge par Heroku, ou encore à l'absence d'indication du processus web dans le fichier Procfile (`No web processes running`), etc.
+
 S'il a été possible de créer un espace pour acceuillir le site : <https://hagiograpy-api-heroku.herokuapp.com/>, qu'il a fallu de nombreux essais et de déplacements de fichiers dans notre arborescense, au final nous n'avons pu résoudre l'erreur du nom de l'app dans le fichier Procfile : ModuleNotFoundError: No module named 'app' dans la ligne : gunicorn app:app. Tous les essais pour indiquer le nom figurant dans les fichiers app, constantes, etc. ont avortés.
 
 * Mise en place de tests
