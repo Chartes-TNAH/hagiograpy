@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 import os
 import os.path
+from .constantes import SECRET_KEY
 
 
 chemin_actuel = os.path.dirname(os.path.abspath(__file__))
