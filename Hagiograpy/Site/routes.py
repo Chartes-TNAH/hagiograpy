@@ -430,17 +430,19 @@ def formulaire_realisation():
 
 @app.route('/formulaire_saint', methods=["GET", "POST"])
 def formulaire_saint():
-    listenomsaint = Saint.query.order_by(Saint.Nom_saint).all()
+    listesaint = Saint.query.order_by(Saint.Nom_saint).all()
+    listebiosaint=Saint.query.order_by(Saint.Biographie).all()
 
     if request.method=="POST":
         nomSaint = request.form.get("Saint", None)
-        Saint.ajouter(nomSaint)
+        bioSaint = request.form.get("BioSaint",None)
+        Saint.ajouter(nomSaint,bioSaint)
 
         flash("Ajout réussi", "success")
-        return render_template("pages/formulaire_saint.html", Listenomsaint=listenomsaint)
+        return render_template("pages/formulaire_saint.html", Listenomsaint=listesaint,Listebiosaint=listebiosaint)
 
 
-    return render_template('pages/formulaire_saint.html', Listenomsaint=listenomsaint)
+    return render_template('pages/formulaire_saint.html', Listenomsaint=listesaint,Listebiosaint=listebiosaint)
 
 @app.route('/formulaire_institution', methods=["GET", "POST"])
 def formulaire_institution():
@@ -460,8 +462,22 @@ def formulaire_institution():
 
     return render_template('pages/formulaire_institution.html', nom="Site",Listeinstitution=listeinstitution,Listelocalisation=listelocalisation)
 
-@app.route('/formulaire_oeuvre')
+@app.route('/formulaire_oeuvre', methods=["GET", "POST"])
 def formulaire_oeuvre():
+    listeOeuvre=Oeuvre.query.all()
+    if request.method == "POST":
+        titreReal=request.form.get("Titre", None)
+        auteur=request.form.get("Auteur",None)
+        langue=request.form.get("Langue", None)
+        incipit=request.form.get("Incipit", None)
+        explicit=request.form.get("Explicit",None)
+        folios=request.form.get("Folios",None)
+        liensite=request.form.get("Lien_site", None)
+        iiif=request.form.get("IIIF",None)
+
+        Oeuvre.ajouter(titreReal,auteur,langue,incipit,explicit,folios,liensite,iiif)
+        flash("Ajout réussi", "success")
+        return render_template('pages/formulaire_oeuvre.html', nom="Site")
 
     return render_template('pages/formulaire_oeuvre.html', nom="Site")
 

@@ -43,7 +43,7 @@ class Oeuvre(db.Model):
         test=Oeuvre.query.filter(Oeuvre.Titre==titre).filter(Oeuvre.Auteur==auteur). filter(Oeuvre.Langue==langue).filter(Oeuvre.Incipit==incipit).filter(Oeuvre.Explicit==excipit).filter(Oeuvre.Folios==folios).filter(Oeuvre.URL==lien_site).filter(Oeuvre.IIIF==iiif).scalar()
 
         if test is None:
-            ajout_oeuvre=Oeuvre(Titre=titre,Auteur=auteur,Langue=langue,Incipit=incipit,Explicit=excipit,URL=lien_site,IIIF=iiif,Folios=folios)
+            ajout_oeuvre=Oeuvre(Titre=titre,Auteur=auteur,Langue=langue,Incipit=incipit,Explicit=excipit,Folios=folios,URL=lien_site,IIIF=iiif)
             db.session.add(ajout_oeuvre)
             db.session.commit()
             recup=Oeuvre.query.filter(Oeuvre.Titre == titre).filter(Oeuvre.Auteur == auteur).filter(
@@ -64,24 +64,25 @@ class Saint(db.Model):
     Nom_saint=db.Column(db.Text)
     Biographie=db.Column(db.Text)
     oeuvres = db.relationship('Oeuvre', secondary=Jointure_Saint_Oeuvre, backref='saints')
+
     @staticmethod
-    def ajouter(nom_saint):
+    def ajouter(nom_saint, BioSaint):
         """ Ajout du saint dans la base de données
         :param nom_saint: nom du saint et de la sainte
         :return: Récupère l'id du saint rajouté ou déjà présent dans la base
         """
 
 
-        test= Saint.query.filter(Saint.Nom_saint==nom_saint).scalar()
+        test= Saint.query.filter(Saint.Nom_saint==nom_saint).filter(Saint.Biographie==BioSaint).scalar()
 
-        if test:
-            noms=Saint(Nom_saint=nom_saint)
+        if test is None:
+            noms=Saint(Nom_saint=nom_saint,Biographie=BioSaint)
             db.session.add(noms)
             db.session.commit()
-            recup=Saint.query.filter(Saint.Nom_saint==nom_saint).first()
+            recup=Saint.query.filter(Saint.Nom_saint==nom_saint).filter(Saint.Biographie==BioSaint).first()
             return recup.IdSaint
         else:
-            recup = Saint.query.filter(Saint.Nom_saint == nom_saint).first()
+            recup = Saint.query.filter(Saint.Nom_saint == nom_saint).filter(Saint.Biographie==BioSaint).first()
             return recup.IdSaint
 
     @staticmethod
