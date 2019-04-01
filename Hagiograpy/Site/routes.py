@@ -151,37 +151,29 @@ def formulaire():
         localisation=request.form.get("Localisation",None)
 
 
-        statut, donnees=controle(nomSaint,titreReal,langue,incipit,explicit,folios,dateprod,lieuprod,cote,nbfeuillet,support,hauteur,largeur,institution,localisation,iiif)
 
 
-        if statut is True:
 
-            id_localisation=Localisation.ajouter(localisation)
-            id_institution=Institution.ajouter(institution, id_localisation)
-            id_saint = Saint.ajouter(nomSaint)
-            id_oeuvre = Oeuvre.ajouter(titreReal, auteur,
-                                       langue, incipit,
-                                       explicit,folios,liensite,iiif)
-            id_realisation = Realisation.ajouter(dateprod,
-                                                 lieuprod,
-                                                 copiste)
-            id_manuscrit = Manuscrit.ajouter(cote,titre_manuscrit ,
-                                             nbfeuillet,
-                                             provenance, support,
-                                             hauteur, largeur,id_institution)
-            Saint.association_Oeuvre_Saint(id_saint, id_oeuvre)
-            Realisation.association_Oeuvre_Realisation(id_oeuvre, id_realisation)
-            Manuscrit.association_manuscrit_realisation(id_manuscrit, id_realisation)
-            flash("Ajout réussi", "success")
-            return render_template("pages/formulaire.html")
-        else:
-            flash("Les erreurs suivantes ont été rencontrées : " + ",".join(donnees), "error")
-            return render_template("pages/formulaire.html", Listenomsaint=listenomsaint,Listecopiste=listecopiste,Listedateprod=listedateprod,
-                                   Listelieuprod=listelieuprod,Listecote=listecote,Listetitremanuscrit=listetitre_manuscrit,Listenbfeuillet=listenbfeuillet,
-                                   Listeprovenance=listeprovenance,Listesupport=listesupport,Listehauteur=listehauteur, Listelargeur=listelargeur
-                                   , Listeinstitution=listeinstitution, Listelocalisation=listelocalisation, Listetitrereal=listetitrereal,
-                                   Listeauteur=listeauteur,Listelangue=listelangue,Listeincipit=listeincipit,Listeexplicit=listeexplicit,
-                                   Listefolios=listefolios,ListeURL=listeliensite,Listeiiif=listeiiif)
+
+        id_localisation=Localisation.ajouter(localisation)
+        id_institution=Institution.ajouter(institution, id_localisation)
+        id_saint = Saint.ajouter(nomSaint)
+        id_oeuvre = Oeuvre.ajouter(titreReal, auteur,
+                                   langue, incipit,
+                                   explicit,folios,liensite,iiif)
+        id_realisation = Realisation.ajouter(dateprod,
+                                             lieuprod,
+                                             copiste)
+        id_manuscrit = Manuscrit.ajouter(cote,titre_manuscrit ,
+                                         nbfeuillet,
+                                         provenance, support,
+                                         hauteur, largeur,id_institution)
+        Saint.association_Oeuvre_Saint(id_saint, id_oeuvre)
+        Realisation.association_Oeuvre_Realisation(id_oeuvre, id_realisation)
+        Manuscrit.association_manuscrit_realisation(id_manuscrit, id_realisation)
+        flash("Ajout réussi", "success")
+        return render_template("pages/formulaire.html")
+
 
     return render_template("pages/formulaire.html", nom="Site",Listenomsaint=listenomsaint,Listecopiste=listecopiste,Listedateprod=listedateprod,
                            Listelieuprod=listelieuprod,Listecote=listecote,Listetitremanuscrit=listetitre_manuscrit,Listenbfeuillet=listenbfeuillet,
@@ -338,7 +330,6 @@ def rechercheavancee ():
 
         if nomSaint:
             question=question.filter(Oeuvre.saint.any(Saint.Nom_saint.like("%{}%".format(nomSaint))))
-            flash(resultats, "success")
         if titreReal:
             question=question.filter(Oeuvre.Titre.like("%{}%".format(titreReal)))
         if auteur:
