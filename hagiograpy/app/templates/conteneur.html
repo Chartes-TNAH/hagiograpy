@@ -19,7 +19,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between" role="navigation">
-        <span><a class="navbar-brand" href="{{ url_for('accueil') }}"><img src="{{url_for("static", filename="images/logo.jpg)}}" width="40" height="40" class="d-inline-block align-top" alt="logo"></span>HagiograPY</a>
+        <span><a class="navbar-brand" href="{{ url_for('accueil') }}"><img src="{{url_for("static", filename="images/logo.jpg")}}" width="40" height="40" class="d-inline-block align-top" alt="logo"></span>HagiograPY</a>
         <div class="container-fluid">
             <ul class="navbar-nav mr-auto">
             {% if not current_user.is_authenticated %}
