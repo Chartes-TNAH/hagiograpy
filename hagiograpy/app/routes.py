@@ -1,4 +1,4 @@
-from flask import render_template, request, flash, redirect
+from flask import render_template, request, flash, redirect, url_for
 
 from .app import app
 from sqlalchemy import or_, and_
@@ -197,7 +197,7 @@ def inscription():
         )
         if statut is True:
             flash("Enregistrement effectué. Identifiez-vous maintenant", "success")
-            return redirect("/")
+            return redirect(url_for("accueil"))
         else:
             flash("Les erreurs suivantes ont été rencontrées : " + ",".join(donnees), "error")
             return render_template("pages/inscription.html")
@@ -211,7 +211,7 @@ def connexion():
     """
     if current_user.is_authenticated is True:
         flash("Vous êtes déjà connecté-e", "info")
-        return redirect("/")
+        return redirect(url_for("accueil"))
     # Si on est en POST, cela veut dire que le formulaire a été envoyé
     if request.method == "POST":
         utilisateur = User.identification(
@@ -221,7 +221,7 @@ def connexion():
         if utilisateur:
             flash("Connexion effectuée", "success")
             login_user(utilisateur)
-            return redirect("/")
+            return redirect(url_for("accueil"))
         else:
             flash("Les identifiants n'ont pas été reconnus", "error")
     return render_template("pages/connexion.html")
@@ -232,7 +232,7 @@ def deconnexion():
     if current_user.is_authenticated is True:
         logout_user()
     flash("Vous êtes déconnecté-e", "info")
-    return redirect("/")
+    return redirect(url_for("accueil"))
   
 
 @app.route("/recherche")
